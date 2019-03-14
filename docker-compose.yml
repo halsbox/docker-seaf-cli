@@ -8,5 +8,5 @@ services:
       - USERNAME=
       - PASSWORD=
       - LIBRARY_ID=
-#      - UID=
-#      - GID=
+      - UID=
+      - GID=
