@@ -1,10 +1,5 @@
 FROM debian:jessie
 
-#ENV UID=1000
-#ENV GID=1000
-#RUN groupadd -g $GID -o seadrive
-#RUN useradd -m -u $UID -g $GID -o -s /bin/bash seadrive
-
 ENV DEBIAN_FRONTEND noninteractive
 
 COPY assets/seafile.list /etc/apt/sources.list.d/
@@ -17,6 +12,17 @@ RUN apt-key adv \
 RUN apt-get update ;\
     apt-get install -o Dpkg::Options::="--force-confold" -y seafile-cli supervisor
 
-RUN mkdir /seafile; mkdir /volume
+RUN mkdir /.seafile; mkdir /volume; touch supervisord.log
+
+ARG UNAME=seafuser
+ENV UID=1000
+ENV GID=1000
+RUN groupadd -g $GID -o $UNAME ;\
+    useradd -m -u $UID -g $GID -o -s /bin/bash $UNAME ;\
+    chown $UID.$GID -R /.seafile ;\
+    chown $UID.$GID -R /volume ;\
+    chown $UID.$GID /supervisord.log ;\
+    chown $UID.$GID /supervisord.conf
+USER $UNAME
 
 ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
