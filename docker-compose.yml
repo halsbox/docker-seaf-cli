@@ -1,0 +1,12 @@
+version: "3.4"
+
+services:
+  seafile-sync:
+    image: seafvol:latest
+    environment:
+      - SERVER=
+      - USERNAME=
+      - PASSWORD=
+      - LIBRARY_ID=
+#      - UID=
+#      - GID=
