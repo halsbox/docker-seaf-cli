@@ -2,8 +2,12 @@ FROM debian:jessie
 
 ENV DEBIAN_FRONTEND noninteractive
 
+RUN mkdir /.seafile ;\
+    mkdir /.supervisord ;\
+    mkdir /volume
+
 COPY assets/seafile.list /etc/apt/sources.list.d/
-COPY assets/supervisord.conf /
+COPY assets/supervisord.conf /.supervisord/
 COPY entrypoint.sh /
 
 RUN apt-key adv \
@@ -12,17 +16,14 @@ RUN apt-key adv \
 RUN apt-get update ;\
     apt-get install -o Dpkg::Options::="--force-confold" -y seafile-cli supervisor
 
-RUN mkdir /.seafile; mkdir /volume; touch supervisord.log
-
 ENV UNAME=seafuser
 ENV UID=1000
 ENV GID=1000
 RUN groupadd -g $GID -o $UNAME ;\
     useradd -m -u $UID -g $GID -o -s /bin/bash $UNAME ;\
     chown $UID.$GID -R /.seafile ;\
-    chown $UID.$GID -R /volume ;\
-    chown $UID.$GID /supervisord.log ;\
-    chown $UID.$GID /supervisord.conf
+    chown $UID.$GID -R /.supervisord ;\
+    chown $UID.$GID -R /volume
 USER $UNAME
 
 ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
