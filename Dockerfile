@@ -8,7 +8,7 @@ FROM debian:jessie
 ENV DEBIAN_FRONTEND noninteractive
 
 COPY assets/seafile.list /etc/apt/sources.list.d/
-COPY assets/supervisord.conf /etc/supervisor/
+COPY assets/supervisord.conf /
 COPY entrypoint.sh /
 
 RUN apt-key adv \
