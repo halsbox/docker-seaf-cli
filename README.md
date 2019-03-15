@@ -1,6 +1,5 @@
 [![1.0.0 status](https://gitlab.com/flwgns-docker/seafile-client/badges/1.0.0/pipeline.svg)](https://gitlab.com/flwgns-docker/seafile-client/commits/1.0.0)
-[![]()]()
-[![]()]()
+[![docker pulls](https://img.shields.io/docker/pulls/flowgunso/seafile-client.svg)](https://hub.docker.com/r/flowgunso/seafile-client)
 
 # Available tags
 
