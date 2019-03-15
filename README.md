@@ -1,11 +1,19 @@
-[![0.9.2 status](https://gitlab.com/flwgns-docker/seafile-client/badges/0.9.2/pipeline.svg)](https://gitlab.com/flwgns-docker/seafile-client/commits/0.9.2)
+[![1.0.0 status](https://gitlab.com/flwgns-docker/seafile-client/badges/1.0.0/pipeline.svg)](https://gitlab.com/flwgns-docker/seafile-client/commits/1.0.0)
+[![]()]()
+[![]()]()
 
-# Available tags.
+# Available tags
 
-[`0`](https://gitlab.com/flwgns-docker/seafile-client/tags/0.9.2),
-[`0.9`](https://gitlab.com/flwgns-docker/seafile-client/tags/0.9.2),
-[`0.9.2`](https://gitlab.com/flwgns-docker/seafile-client/tags/0.9.2),
-[`latest`](https://gitlab.com/flwgns-docker/seafile-client/tags/0.9.2) (see tag/release [0.9.2](https://gitlab.com/flwgns-docker/seafile-client/tags/0.9.2))
+## Production stable release
+[`1`](https://gitlab.com/flwgns-docker/seafile-client/tags/1.0.0),
+[`1.0`](https://gitlab.com/flwgns-docker/seafile-client/tags/1.0.0),
+[`1.0.0`](https://gitlab.com/flwgns-docker/seafile-client/tags/1.0.0),
+[`latest`](https://gitlab.com/flwgns-docker/seafile-client/tags/1.0.0)
+(see tag/release [1.0.0](https://gitlab.com/flwgns-docker/seafile-client/tags/1.0.0))
+
+## Developmental releases
+[`staging`](https://gitlab.com/flwgns-docker/seafile-client/tree/staging)
+(see branch [staging](https://gitlab.com/flwgns-docker/seafile-client/tree/staging))
 
 
 # Purpose
