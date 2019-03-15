@@ -10,9 +10,9 @@ staging:
   stage: build_publish
   before_script:
   - apk add bash
-  - echo $CI_JOB_TOKEN | docker login -u $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
+  - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
   script:
-  - /bin/bash utils/publish/staging
+  - /bin/bash utils/publish/staging.sh
   only:
   - staging
 
@@ -20,7 +20,7 @@ production:
   stage: build_publish
   before_script:
   - apk add bash
-  - echo $CI_JOB_TOKEN | docker login -u $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
+  - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
   script:
   - /bin/bash utils/publish/production.sh
   only:
