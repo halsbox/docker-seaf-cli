@@ -16,23 +16,28 @@
 
 FROM debian:jessie
 
+# Prevent the packages installation to halt.
 ENV DEBIAN_FRONTEND noninteractive
 
+# Prepare the directories.
 RUN mkdir /.seafile ;\
     mkdir /.supervisord ;\
     mkdir /volume
 
+# Put the core functionalities into the image.
 COPY assets/seafile.list /etc/apt/sources.list.d/
 COPY assets/supervisord.conf /.supervisord/
 COPY assets/infinite-seaf-cli-start.sh /
 COPY entrypoint.sh /
 
+# Install both seafile-cli and supervisord.
 RUN apt-key adv \
         --keyserver hkp://keyserver.ubuntu.com:80 \
         --recv-keys 8756C4F765C9AC3CB6B85D62379CE192D401AB61
 RUN apt-get update ;\
     apt-get install -o Dpkg::Options::="--force-confold" -y seafile-cli supervisor
 
+# Configure the user.
 ENV UNAME=seafuser
 ENV UID=1000
 ENV GID=1000
