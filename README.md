@@ -1,5 +1,10 @@
 # Available tags.
 
+[`0`](https://gitlab.com/flwgns-docker/docker-seafile-client/tags/0.9.0),
+[`0.9`](https://gitlab.com/flwgns-docker/docker-seafile-client/tags/0.9.0),
+[`0.9.0`](https://gitlab.com/flwgns-docker/docker-seafile-client/tags/0.9.0),
+[`latest`](https://gitlab.com/flwgns-docker/docker-seafile-client/tags/0.9.0) (see tag/release [0.9.0](https://gitlab.com/flwgns-docker/docker-seafile-client/tags/0.9.0))
+
 
 # Purpose
 Docker Seafile Client allow you to sync a Seafile library within a container. Essentially, you have the ability to:
