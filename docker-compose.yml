@@ -1,0 +1,17 @@
+version: "3.4"
+
+services:
+  seafile-sync:
+    image: registry.gitlab.com/flwgns-docker/docker-seafile-client:latest
+    volumes:
+      your_shared_volume:/volume
+    environment:
+      - SEAF_SERVER=
+      - SEAF_USERNAME=
+      - SEAF_PASSWORD=
+      - SEAF_LIBRARY_UUID=
+      - UID=
+      - GID=
+
+volumes:
+  your_shared_volume:
