@@ -1,9 +1,11 @@
+[![0.9.1 status](https://gitlab.com/flwgns-docker/docker-seafile-client/badges/0.9.1/pipeline.svg)](https://gitlab.com/flwgns-docker/docker-seafile-client/commits/0.9.1)
+
 # Available tags.
 
-[`0`](https://gitlab.com/flwgns-docker/docker-seafile-client/tags/0.9.0),
-[`0.9`](https://gitlab.com/flwgns-docker/docker-seafile-client/tags/0.9.0),
-[`0.9.0`](https://gitlab.com/flwgns-docker/docker-seafile-client/tags/0.9.0),
-[`latest`](https://gitlab.com/flwgns-docker/docker-seafile-client/tags/0.9.0) (see tag/release [0.9.0](https://gitlab.com/flwgns-docker/docker-seafile-client/tags/0.9.0))
+[`0`](https://gitlab.com/flwgns-docker/docker-seafile-client/tags/0.9.1),
+[`0.9`](https://gitlab.com/flwgns-docker/docker-seafile-client/tags/0.9.1),
+[`0.9.1`](https://gitlab.com/flwgns-docker/docker-seafile-client/tags/0.9.1),
+[`latest`](https://gitlab.com/flwgns-docker/docker-seafile-client/tags/0.9.1) (see tag/release [0.9.1](https://gitlab.com/flwgns-docker/docker-seafile-client/tags/0.9.1))
 
 
 # Purpose
