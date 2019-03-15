@@ -1,11 +1,11 @@
-[![0.9.2 status](https://gitlab.com/flwgns-docker/docker-seafile-client/badges/0.9.2/pipeline.svg)](https://gitlab.com/flwgns-docker/docker-seafile-client/commits/0.9.2)
+[![0.9.2 status](https://gitlab.com/flwgns-docker/seafile-client/badges/0.9.2/pipeline.svg)](https://gitlab.com/flwgns-docker/seafile-client/commits/0.9.2)
 
 # Available tags.
 
-[`0`](https://gitlab.com/flwgns-docker/docker-seafile-client/tags/0.9.2),
-[`0.9`](https://gitlab.com/flwgns-docker/docker-seafile-client/tags/0.9.2),
-[`0.9.2`](https://gitlab.com/flwgns-docker/docker-seafile-client/tags/0.9.2),
-[`latest`](https://gitlab.com/flwgns-docker/docker-seafile-client/tags/0.9.2) (see tag/release [0.9.2](https://gitlab.com/flwgns-docker/docker-seafile-client/tags/0.9.2))
+[`0`](https://gitlab.com/flwgns-docker/seafile-client/tags/0.9.2),
+[`0.9`](https://gitlab.com/flwgns-docker/seafile-client/tags/0.9.2),
+[`0.9.2`](https://gitlab.com/flwgns-docker/seafile-client/tags/0.9.2),
+[`latest`](https://gitlab.com/flwgns-docker/seafile-client/tags/0.9.2) (see tag/release [0.9.2](https://gitlab.com/flwgns-docker/seafile-client/tags/0.9.2))
 
 
 # Purpose
@@ -32,7 +32,7 @@ docker run \
     -e SEAF_PASSWORD \
     -e SEAF_LIBRARY_UUID \
     -v your/shared/volume:/volume \
-    registry.gitlab.com/flwgns-docker/docker-seafile-client:latest
+    registry.gitlab.com/flwgns-docker/seafile-client:latest
 ```
 ### docker-compose
 ```yaml
@@ -40,7 +40,7 @@ version: "3.4"
 
 services:
   seafile-sync:
-    image: registry.gitlab.com/flwgns-docker/docker-seafile-client:latest
+    image: registry.gitlab.com/flwgns-docker/seafile-client:latest
     volumes:
       - your_shared_volume:/volume
     environment:
@@ -79,4 +79,4 @@ The group ID defaults to `1000`. Similarly, you may want to override this variab
 
 # Source code
 This Docker image is licensed under GPLv3.  
-The source code is available in [gitlab.com/flwgns-docker/docker-seafile-client](https://gitlab.com/flwgns-docker/docker-seafile-client/).
+The source code is available in [gitlab.com/flwgns-docker/seafile-client](https://gitlab.com/flwgns-docker/seafile-client/).
