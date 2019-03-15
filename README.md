@@ -20,12 +20,20 @@ The *Seafile* daemon is running from `/.seafile/` and `~/.ccnet`.
 The library is synced at `/volume/`.
 
 The *Seafile* daemon is managed with *supervisord* since it can't run as a foreground process.
-The *supervisord* is running from `/.supervisord/`, the `supervisord.conf`, `supervisord.log` and `supervisord.pid` can be found there.
-*supervisord* also manage a shell script, `/seaf-cli-start.sh` which run `seaf-cli start` every hour: the synchronisation might not work properly if the previously is not run from times to times, for an unresolved reason.
+The *supervisord* is running from `/.supervisord/`, the `supervisord.conf`, `supervisord.log` and `supervisord.pid` can be found there.  
+*supervisord* also manage a shell script, `/infinite-seaf-cli-start.sh` which run `seaf-cli start` every hour: the synchronisation might not work properly if `seaf-cli start` is not run from times to times, for an unresolved reason.
 ## Examples
 You would have to share the path `/volume/` to other containers, with the following approaches:
 ### Docker CLI
-`docker run `
+```
+docker run \ 
+    -e SEAF_SERVER_URL= \
+    -e SEAF_USERNAME \
+    -e SEAF_PASSWORD \
+    -e SEAF_LIBRARY_UUID \
+    -v your/shared/volume:/volume \
+    registry.gitlab.com/flwgns-docker/docker-seafile-client:latest
+```
 ### docker-compose
 ```yaml
 version: "3.4"
