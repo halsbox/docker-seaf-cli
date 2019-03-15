@@ -46,7 +46,7 @@ docker run \
 version: "3.4"
 
 services:
-  seafile-sync:
+  seafile-client:
     image: flowgunso/seafile-client:latest
     volumes:
       - your_shared_volume:/volume
