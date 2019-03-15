@@ -24,7 +24,7 @@ RUN mkdir /.seafile ;\
 
 COPY assets/seafile.list /etc/apt/sources.list.d/
 COPY assets/supervisord.conf /.supervisord/
-COPY assets/seaf-cli-start.sh /
+COPY assets/infinite-seaf-cli-start.sh /
 COPY entrypoint.sh /
 
 RUN apt-key adv \
@@ -42,7 +42,7 @@ RUN groupadd -g $GID -o $UNAME ;\
     chown $UID.$GID -R /.supervisord ;\
     chown $UID.$GID -R /volume ;\
     chown $UID.$GID /entrypoint.sh ;\
-    chown $UID.$GID /seaf-cli-start.sh
+    chown $UID.$GID /infinite-seaf-cli-start.sh
 USER $UNAME
 
 ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
