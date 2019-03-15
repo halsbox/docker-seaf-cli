@@ -32,7 +32,7 @@ docker run \
     -e SEAF_PASSWORD \
     -e SEAF_LIBRARY_UUID \
     -v your/shared/volume:/volume \
-    registry.gitlab.com/flwgns-docker/seafile-client:latest
+    flowgunso/seafile-client:latest
 ```
 ### docker-compose
 ```yaml
@@ -40,7 +40,7 @@ version: "3.4"
 
 services:
   seafile-sync:
-    image: registry.gitlab.com/flwgns-docker/seafile-client:latest
+    image: flowgunso/seafile-client:latest
     volumes:
       - your_shared_volume:/volume
     environment:
