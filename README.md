@@ -1,16 +1,25 @@
-[![1.0.0 status](https://gitlab.com/flwgns-docker/seafile-client/badges/1.0.0/pipeline.svg)](https://gitlab.com/flwgns-docker/seafile-client/commits/1.0.0)
+[![1.0.1 status](https://gitlab.com/flwgns-docker/seafile-client/badges/1.0.1/pipeline.svg)](https://gitlab.com/flwgns-docker/seafile-client/commits/1.0.1)
 [![docker pulls](https://img.shields.io/docker/pulls/flowgunso/seafile-client.svg)](https://hub.docker.com/r/flowgunso/seafile-client)
 
 # Available tags
 
-## Production stable release
-[`1`](https://gitlab.com/flwgns-docker/seafile-client/tags/1.0.0),
-[`1.0`](https://gitlab.com/flwgns-docker/seafile-client/tags/1.0.0),
+Weekly stable release are built every Monday at 6AM UTC+2.  
+Permanent stable releases will not be built again.
+
+You can rely on the weekly stable releases. They are stable.
+
+## Weekly stable releases.
+[`1`](https://gitlab.com/flwgns-docker/seafile-client/tags/1.0.1),
+[`1.0`](https://gitlab.com/flwgns-docker/seafile-client/tags/1.0.1),
+[`1.0.1`](https://gitlab.com/flwgns-docker/seafile-client/tags/1.0.1),
+[`latest`](https://gitlab.com/flwgns-docker/seafile-client/tags/1.0.1)
+(see tag/release [1.0.1](https://gitlab.com/flwgns-docker/seafile-client/tags/1.0.1))
+
+## Permanent stable releases.
 [`1.0.0`](https://gitlab.com/flwgns-docker/seafile-client/tags/1.0.0),
-[`latest`](https://gitlab.com/flwgns-docker/seafile-client/tags/1.0.0)
 (see tag/release [1.0.0](https://gitlab.com/flwgns-docker/seafile-client/tags/1.0.0))
 
-## Developmental releases
+## Developmental releases.
 [`staging`](https://gitlab.com/flwgns-docker/seafile-client/tree/staging)
 (see branch [staging](https://gitlab.com/flwgns-docker/seafile-client/tree/staging))
 
