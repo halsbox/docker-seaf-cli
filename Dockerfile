@@ -30,12 +30,12 @@ COPY assets/supervisord.conf /.supervisord/
 COPY assets/infinite-seaf-cli-start.sh /
 COPY entrypoint.sh /
 
-# Install both seafile-cli and supervisord.
-RUN apt-key adv \
-        --keyserver hkp://keyserver.ubuntu.com:80 \
-        --recv-keys 8756C4F765C9AC3CB6B85D62379CE192D401AB61
-RUN apt-get update ;\
+# Safely import Seafile APT key, then install both seafile-cli and supervisord.
+COPY utils/build/import-seafile-apt-key.sh /
+RUN /bin/bash /import-seafile-apt-key.sh ;\
+    apt-get update ;\
     apt-get install -o Dpkg::Options::="--force-confold" -y seafile-cli supervisor
+RUN rm -f /import-seafile-apt-key.sh
 
 # Configure the user.
 ENV UNAME=seafuser
