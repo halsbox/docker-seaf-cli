@@ -16,6 +16,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-# Just build and push as staging.
-docker build -t $CI_REGISTRY_IMAGE:staging .
-docker push $CI_REGISTRY_IMAGE:staging
+not_imported=true
+while $not_imported; do
+	apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 8756C4F765C9AC3CB6B85D62379CE192D401AB61
+	if [ $? -eq 0 ]; then
+		not_imported=false
+	else
+		sleep 5
+	fi
+done
