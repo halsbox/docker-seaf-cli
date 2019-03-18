@@ -24,10 +24,10 @@ fi
 
 # If no build indication was given, assume BUILD_LATEST.
 # Most likely, this will only cover builds triggered from tag pushes.
-if [ -z $BUILD_LATEST -o \
-     -z $BUILD_MAJOR -o \
-     -z $BUILD_MINOR -o \
-     -z $BUILD_REVISION ]; then
+if [ -z $BUILD_LATEST ] || \
+   [ -z $BUILD_MAJOR ] || \
+   [ -z $BUILD_MINOR ] || \
+   [ -z $BUILD_REVISION ]; then
     BUILD_LATEST=true
 fi
 
