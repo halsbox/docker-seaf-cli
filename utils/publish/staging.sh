@@ -16,6 +16,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-# Just build and push as staging.
+# Restrict to pipeline triggered by pushes.
+if [ $CI_PIPELINE_SOURCE != "push" ]; then
+    echo "This must be only ran from pushes."
+    exit 1
+fi
+
+# Build and push as staging.
 docker build -t $CI_REGISTRY_IMAGE:staging .
 docker push $CI_REGISTRY_IMAGE:staging

@@ -22,13 +22,22 @@ if ! [[ "$CI_COMMIT_TAG" =~ ^[0-9]+[.][0-9]+[.][0-9]+$ ]]; then
     exit 1
 fi
 
-# If no build indication was given, assume BUILD_LATEST.
-# Most likely, this will only cover builds triggered from tag pushes.
-if [ -z $BUILD_LATEST ] || \
-   [ -z $BUILD_MAJOR ] || \
-   [ -z $BUILD_MINOR ] || \
-   [ -z $BUILD_REVISION ]; then
+# When this stage is ran from 'push', the build target is BUILD_LATEST.
+# When this stage is ran from 'trigger', the build target must be provided.
+# Otherwise, stop the stage. 
+if [ $CI_PIPELINE_SOURCE == "push" ]; then
     BUILD_LATEST=true
+elif [ $CI_PIPELINE_SOURCE == "trigger" ]; then
+    if [ -z $BUILD_LATEST ] || \
+    [ -z $BUILD_MAJOR ] || \
+    [ -z $BUILD_MINOR ] || \
+    [ -z $BUILD_REVISION ]; then
+        echo "You must provide build targets to this stage when ran from Pipeline Triggers."
+        exit 1
+    fi
+else
+    echo "This stage is restricted to 'push' or 'trigger' Pipeline sources."
+    exit 1
 fi
 
 # Cascade the builds by inheritance.
