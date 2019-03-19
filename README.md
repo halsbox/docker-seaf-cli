@@ -1,4 +1,4 @@
-[![1.0.2 status](https://gitlab.com/flwgns-docker/seafile-client/badges/1.0.2/pipeline.svg)](https://gitlab.com/flwgns-docker/seafile-client/commits/1.0.2)
+[![1.0.3 status](https://gitlab.com/flwgns-docker/seafile-client/badges/1.0.3/pipeline.svg)](https://gitlab.com/flwgns-docker/seafile-client/commits/1.0.3)
 [![docker pulls](https://img.shields.io/docker/pulls/flowgunso/seafile-client.svg)](https://hub.docker.com/r/flowgunso/seafile-client)
 
 # Available tags
@@ -9,14 +9,16 @@ Permanent stable releases will not be built again.
 You can rely on the weekly stable releases. They are stable.
 
 ## Weekly stable releases.
-[`1`](https://gitlab.com/flwgns-docker/seafile-client/tags/1.0.2),
-[`1.0`](https://gitlab.com/flwgns-docker/seafile-client/tags/1.0.2),
-[`1.0.2`](https://gitlab.com/flwgns-docker/seafile-client/tags/1.0.2),
-[`latest`](https://gitlab.com/flwgns-docker/seafile-client/tags/1.0.2)
-(see tag/release [1.0.2](https://gitlab.com/flwgns-docker/seafile-client/tags/1.0.2))
+[`1`](https://gitlab.com/flwgns-docker/seafile-client/tags/1.0.3),
+[`1.0`](https://gitlab.com/flwgns-docker/seafile-client/tags/1.0.3),
+[`1.0.3`](https://gitlab.com/flwgns-docker/seafile-client/tags/1.0.3),
+[`latest`](https://gitlab.com/flwgns-docker/seafile-client/tags/1.0.3)
+(see tag/release [1.0.3](https://gitlab.com/flwgns-docker/seafile-client/tags/1.0.3))
 
 ## Permanent stable releases.
-[`1.0.0`](https://gitlab.com/flwgns-docker/seafile-client/tags/1.0.0),
+[`1.0.2`](https://gitlab.com/flwgns-docker/seafile-client/tags/1.0.2)
+(see tag/release [1.0.2](https://gitlab.com/flwgns-docker/seafile-client/tags/1.0.2))  
+[`1.0.0`](https://gitlab.com/flwgns-docker/seafile-client/tags/1.0.0)
 (see tag/release [1.0.0](https://gitlab.com/flwgns-docker/seafile-client/tags/1.0.0))
 
 ## Developmental releases.
