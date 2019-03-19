@@ -1,3 +1,7 @@
+### [1.0.3] - 2019/03/19
+- Restrict staging pipelines to pushed pipelines
+- Restrict production pipelines to pushed and triggered pipelines
+- Require a build target on triggered production pipelines
 ### [1.0.2] - 2019/03/18
 - Fix a minor issue when testing for requested production build.
 ### [1.0.1] - 2019/03/18
