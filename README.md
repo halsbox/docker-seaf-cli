@@ -26,6 +26,7 @@ You can rely on the weekly stable releases. They are stable.
 
 # Purpose
 Docker Seafile Client allow you to sync a Seafile library within a container.
+
 Essentially, you can **share** data from a **Seafile library** as a volume to **other containers**.
 
 ## Seafile?
