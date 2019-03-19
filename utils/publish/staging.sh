@@ -19,6 +19,7 @@
 # Restrict to pipeline triggered by pushes.
 if [ $CI_PIPELINE_SOURCE != "push" ]; then
     echo "This must be only ran from pushes."
+    exit 1
 fi
 
 # Build and push as staging.
