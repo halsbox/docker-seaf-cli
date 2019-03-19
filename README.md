@@ -25,8 +25,9 @@ You can rely on the weekly stable releases. They are stable.
 
 
 # Purpose
-Docker Seafile Client allow you to sync a Seafile library within a container. Essentially, you have the ability to:
-* **Share** data from a **Seafile library** as a volume to **other containers**.
+Docker Seafile Client allow you to sync a Seafile library within a container.
+Essentially, you can **share** data from a **Seafile library** as a volume to **other containers**.
+
 ## Seafile?
 [Seafile is a cloud storage software](https://www.seafile.com/).
 
@@ -43,10 +44,12 @@ You would have to share the path `/volume/` to other containers, with the follow
 ### Docker CLI
 ```
 docker run \ 
-    -e SEAF_SERVER_URL= \
-    -e SEAF_USERNAME \
-    -e SEAF_PASSWORD \
-    -e SEAF_LIBRARY_UUID \
+    -e SEAF_SERVER_URL= \   # The URL to your Seafile server.
+    -e SEAF_USERNAME= \     # Your Seafile username.
+    -e SEAF_PASSWORD= \     # Your Seafile password
+    -e SEAF_LIBRARY_UUID= \ # The Seafile library UUID you want to sync with.
+    -e UID= \               # Default is 1000.
+    -e GID= \               # Default is 1000.
     -v your/shared/volume:/volume \
     flowgunso/seafile-client:latest
 ```
@@ -62,7 +65,7 @@ services:
     environment:
       - SEAF_SERVER_URL=    # The URL to your Seafile server.
       - SEAF_USERNAME=      # Your Seafile username.
-      - SEAF_PASSWORD=      # Your Seafile password
+      - SEAF_PASSWORD=      # Your Seafile password.
       - SEAF_LIBRARY_UUID=  # The Seafile library UUID you want to sync with.
       - UID=                # Default is 1000.
       - GID=                # Default is 1000.
