@@ -61,7 +61,7 @@ docker build \
     -t $CI_REGISTRY_IMAGE:$REVISION .
 
 # Login with Docker Registry.
-echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER docker.io --password-stdin
+echo $CI_REGISTRY_BOT_PASSWORD | docker login -u $CI_REGISTRY_BOT_USERNAME docker.io --password-stdin
 
 # Only push requested builds. 
 if [ $BUILD_LATEST ]; then docker push index.docker.io/$CI_REGISTRY_IMAGE:latest; fi
