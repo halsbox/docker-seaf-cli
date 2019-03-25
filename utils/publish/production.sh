@@ -60,8 +60,11 @@ docker build \
     -t $CI_REGISTRY_IMAGE:$MINOR \
     -t $CI_REGISTRY_IMAGE:$REVISION .
 
+# Login with Docker Registry.
+echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER docker.io --password-stdin
+
 # Only push requested builds. 
-if [ $BUILD_LATEST ]; then docker push $CI_REGISTRY_IMAGE:latest; fi
-if [ $BUILD_MAJOR ]; then docker push $CI_REGISTRY_IMAGE:$MAJOR; fi
-if [ $BUILD_MINOR ]; then docker push $CI_REGISTRY_IMAGE:$MINOR; fi
-if [ $BUILD_REVISION ]; then docker push $CI_REGISTRY_IMAGE:$REVISION; fi
+if [ $BUILD_LATEST ]; then docker push index.docker.io/$CI_REGISTRY_IMAGE:latest; fi
+if [ $BUILD_MAJOR ]; then docker push index.docker.io/$CI_REGISTRY_IMAGE:$MAJOR; fi
+if [ $BUILD_MINOR ]; then docker push index.docker.io/$CI_REGISTRY_IMAGE:$MINOR; fi
+if [ $BUILD_REVISION ]; then docker push index.docker.io/$CI_REGISTRY_IMAGE:$REVISION; fi
