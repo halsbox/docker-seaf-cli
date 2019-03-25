@@ -16,7 +16,7 @@ token=$(curl -s \
 # Generate a JSON with the README.md as the full_description.
 json=$(jq -n \
     --arg readme "$(<README.md)" \
-    '{"full_description": "'"$readme"'"}')
+    '{"full_description": $readme}')
 
 # Update the Docker Hub repository's full_description.
 curl -s -L \
