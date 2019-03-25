@@ -55,10 +55,10 @@ REVISION=$MINOR.$REVISION_NUMBER
 
 # Always build with all tags, there's a single build anyway.
 docker build \
-    -t $CI_REGISTRY_IMAGE:latest \
-    -t $CI_REGISTRY_IMAGE:$MAJOR \
-    -t $CI_REGISTRY_IMAGE:$MINOR \
-    -t $CI_REGISTRY_IMAGE:$REVISION .
+    -t index.docker.io/$CI_REGISTRY_IMAGE:latest \
+    -t index.docker.io/$CI_REGISTRY_IMAGE:$MAJOR \
+    -t index.docker.io/$CI_REGISTRY_IMAGE:$MINOR \
+    -t index.docker.io/$CI_REGISTRY_IMAGE:$REVISION .
 
 # Login with Docker Registry.
 echo $CI_REGISTRY_BOT_PASSWORD | docker login -u $CI_REGISTRY_BOT_USERNAME docker.io --password-stdin
