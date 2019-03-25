@@ -22,6 +22,9 @@ if [ $CI_PIPELINE_SOURCE != "push" ]; then
     exit 1
 fi
 
+# Login with Docker Registry.
+echo $CI_REGISTRY_BOT_PASSWORD | docker login -u $CI_REGISTRY_BOT_USERNAME docker.io --password-stdin
+
 # Build and push as staging.
-docker build -t $CI_REGISTRY_IMAGE:staging .
-docker push $CI_REGISTRY_IMAGE:staging
+docker build -t index.docker.io/$CI_REGISTRY_IMAGE:staging .
+docker push index.docker.io/$CI_REGISTRY_IMAGE:staging

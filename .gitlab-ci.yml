@@ -6,11 +6,11 @@ services:
 stages:
 - build_publish
 
+before_script:
+- apk add bash
+
 staging:
   stage: build_publish
-  before_script:
-  - apk add bash
-  - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
   script:
   - /bin/bash utils/publish/staging.sh
   only:
@@ -18,12 +18,16 @@ staging:
 
 production:
   stage: build_publish
-  before_script:
-  - apk add bash
-  - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
   script:
   - /bin/bash utils/publish/production.sh
   only:
   - tags
   except:
   - branches
+
+update_docker_hub_full_description:
+  stage: build_publish
+  script:
+    - /bin/bash utils/publish/update-docker-hub-full-description.sh
+  only:
+    - master
