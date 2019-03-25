@@ -6,8 +6,8 @@ services:
 stages:
 - build_publish
 
-before-script:
-  - apk add bash
+before_script:
+- apk add bash
 
 staging:
   stage: build_publish
