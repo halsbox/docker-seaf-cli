@@ -3,6 +3,9 @@
 # Based upon https://gist.github.com/jlhawn/8f218e7c0b14c941c41f
 # and https://github.com/moikot/golang-dep/blob/master/.travis/push.sh
 
+# Install required system packages.
+apk add curl jq
+
 # Get a token from hub.docker.com with the owner credentials.
 token=$(curl -s \
         -X POST \
