@@ -1,3 +1,5 @@
+### [1.0.5] - 2019/03/25
+- Minor fixes from v1.0.4
 ### [1.0.4] - 2019/03/25
 - Fix the build target detection (@a52559ddb38a64d7fceaa8bf9b8afd7356ccc439)
 - Login to the Docker Hub from within the script, not the gitlab-ci.yml, using (@72bab017c1167b8ab35cef3cc709ff83686eaca4, @f69483354a4cf8afdbea89ef2bb1d9a9b7b2ac10)
