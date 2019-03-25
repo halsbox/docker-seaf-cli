@@ -24,3 +24,10 @@ production:
   - tags
   except:
   - branches
+
+update_docker_hub_full_description:
+  stage: build_publish
+  script:
+    - /bin/bash utils/publish/update-docker-hub-full-description.sh
+  only:
+    - master
