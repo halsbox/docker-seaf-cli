@@ -28,9 +28,9 @@ fi
 if [ $CI_PIPELINE_SOURCE == "push" ]; then
     BUILD_LATEST=true
 elif [ $CI_PIPELINE_SOURCE == "trigger" ]; then
-    if [ -z $BUILD_LATEST ] || \
-    [ -z $BUILD_MAJOR ] || \
-    [ -z $BUILD_MINOR ] || \
+    if [ -z $BUILD_LATEST ] && \
+    [ -z $BUILD_MAJOR ] && \
+    [ -z $BUILD_MINOR ] && \
     [ -z $BUILD_REVISION ]; then
         echo "You must provide build targets to this stage when ran from Pipeline Triggers."
         exit 1
