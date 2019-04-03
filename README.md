@@ -85,13 +85,13 @@ The following environment variable are available.
 
 ## Seafile
 This Docker **must be configured with the following**, **otherwise** it **will not run**:
-## SEAF_SERVER_URL
+### SEAF_SERVER_URL
 The URL to your Seafile server.
-## SEAF_USERNAME
+### SEAF_USERNAME
 Your Seafile account's username.
-## SEAF_PASSWORD
+### SEAF_PASSWORD
 Your Seafile account's password.
-## SEAF_LIBRARY_UUID
+### SEAF_LIBRARY_UUID
 The Seafile library UUID you want to use.
 
 ## User permissions
