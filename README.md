@@ -1,7 +1,7 @@
 [![1.0.6 build status](https://gitlab.com/flwgns-docker/seafile-client/badges/1.0.6/pipeline.svg)](https://gitlab.com/flwgns-docker/seafile-client/commits/1.0.6)
 [![Docker pulls](https://img.shields.io/docker/pulls/flowgunso/seafile-client.svg)](https://hub.docker.com/r/flowgunso/seafile-client)
 [![Licensed under GPLv3](https://img.shields.io/badge/License-GPLv3-red.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![@gitlab.com/flwgns-docker/seafile-client](https://img.shields.io/badge/Code%20source-GitLab-red.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![@gitlab.com/flwgns-docker/seafile-client](https://img.shields.io/badge/Code%20source-GitLab-red.svg)](https://gitlab.com/flwgns-docker/seafile-client/)
 
 # Available tags
 
