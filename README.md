@@ -66,6 +66,7 @@ version: "3.4"
 services:
   seafile-client:
     image: flowgunso/seafile-client:latest
+    restart: on-failure
     volumes:
       - your_shared_volume:/volume
     environment:
