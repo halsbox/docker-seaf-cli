@@ -28,7 +28,6 @@ RUN mkdir /.seafile ;\
 COPY assets/seafile.list /etc/apt/sources.list.d/
 COPY assets/supervisord.conf /.supervisord/
 COPY assets/infinite-seaf-cli-start.sh /
-COPY assets/change-ownership.sh /
 COPY entrypoint.sh /
 RUN chmod 777 /entrypoint.sh
 
