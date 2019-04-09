@@ -30,14 +30,24 @@ supervisord_pid=/.supervisord/supervisord.pid
 supervisord_log=/.supervisord/supervisord.log
 
 # Update the file ownership.
-/bin/bash /change-ownership.sh
+groupmod -u $GID $UNAME
+usermod -u $UID $UNAME
+chown $UID.$GID -R /.seafile
+chown $UID.$GID -R /.supervisord
+chown $UID.$GID -R /volume
+chown $UID.$GID /entrypoint.sh
+chown $UID.$GID /infinite-seaf-cli-start.sh
+
 # Safely initialize Seafile.
-/usr/bin/seaf-cli init -d /.seafile
+su - $UNAME -H -c /usr/bin/seaf-cli init -d /.seafile
 while [ ! -f $seafile_ini ]; do sleep 1; done
+
 # Safely start the Seafile daemon.
-/usr/bin/seaf-cli start
+su - $UNAME -H -c /usr/bin/seaf-cli start
 while [ ! -S $seafile_sock ]; do sleep 1; done
+
 # Start the synchronisation.
-/usr/bin/seaf-cli sync -u $SEAF_USERNAME -p $SEAF_PASSWORD -s $SEAF_SERVER_URL -l $SEAF_LIBRARY_UUID -d /volume
+su - $UNAME -H -c  /usr/bin/seaf-cli sync -u $SEAF_USERNAME -p $SEAF_PASSWORD -s $SEAF_SERVER_URL -l $SEAF_LIBRARY_UUID -d /volume
+
 # Start the supervisord.
-/usr/bin/supervisord -u $UNAME -c $supervisord_conf -j $supervisord_pid -l $supervisord_log
+su - $UNAME -H -c /usr/bin/supervisord -u $UNAME -c $supervisord_conf -j $supervisord_pid -l $supervisord_log
