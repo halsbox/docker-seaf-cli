@@ -19,6 +19,9 @@ FROM debian:jessie
 # Prevent the packages installation to halt.
 ENV DEBIAN_FRONTEND noninteractive
 
+# Copy over the seafile repository.
+COPY assets/seafile.list /etc/apt/sources.list.d/
+
 # Safely import Seafile APT key, then install both seafile-cli and supervisord.
 COPY utils/build/import-seafile-apt-key.sh /
 RUN /bin/bash /import-seafile-apt-key.sh ;\
@@ -33,10 +36,9 @@ ENV GID=1000
 RUN groupadd -g $GID -o $UNAME ;\
     useradd -m -u $UID -g $GID -o -s /bin/bash $UNAME
 
-# Put the core functionalities into the image.
-COPY assets/seafile.list /etc/apt/sources.list.d/
+# Copy over the Docker entrypoint.
 COPY entrypoint.sh /
-# and the ones for the seafile client user.
+# Copy over the required files for Seafile/SupervisorD.
 COPY assets/supervisord.conf /home/seafuser/
 COPY assets/infinite-seaf-cli-start.sh /home/seafuser/
 COPY assets/entrypoint.sh /home/seafuser/
