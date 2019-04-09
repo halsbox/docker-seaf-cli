@@ -26,7 +26,6 @@ supervisord_log=~/.supervisord/supervisord.log
 # Prepare the directories.
 mkdir ~/.seafile
 mkdir ~/.supervisord
-mkdir ~/share
 
 # Safely initialise the Seafile client.
 /usr/bin/seaf-cli init -d ~/.seafile

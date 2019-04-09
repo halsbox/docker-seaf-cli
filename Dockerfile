@@ -38,9 +38,11 @@ RUN groupadd -g $GID -o $UNAME ;\
 
 # Copy over the Docker entrypoint.
 COPY assets/docker-entrypoint.sh /entrypoint.sh
+
 # Copy over the required files for Seafile/SupervisorD.
 COPY assets/supervisord.conf /home/seafuser/
 COPY assets/infinite-seaf-cli-start.sh /home/seafuser/
 COPY assets/seafile-entrypoint.sh /home/seafuser/entrypoint.sh
+RUN mkdir /volume
 
 ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]

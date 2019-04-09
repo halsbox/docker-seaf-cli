@@ -42,6 +42,7 @@ fi
 chown $UID.$GID -R /home/seafuser/supervisord.conf
 chown $UID.$GID -R /home/seafuser/infinite-seaf-cli-start.sh
 chown $UID.$GID -R /home/seafuser/entrypoint.sh
+chown $UID.$GID -R /volume
 
 # Run the Seafile client as the container user.
 su - $UNAME << EO
