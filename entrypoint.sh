@@ -29,6 +29,8 @@ supervisord_conf=/.supervisord/supervisord.conf
 supervisord_pid=/.supervisord/supervisord.pid
 supervisord_log=/.supervisord/supervisord.log
 
+# Update the file ownership.
+/bin/bash /change-ownership.sh
 # Safely initialize Seafile.
 /usr/bin/seaf-cli init -d /.seafile
 while [ ! -f $seafile_ini ]; do sleep 1; done
