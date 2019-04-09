@@ -17,10 +17,10 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 # Check mandatory Seafile configuration have been properly set.
-if [ -z $SEAF_SERVER_URL ]; then echo "The \$SEAF_SERVER_URL was not defined. Stopping container..."; echo 1; fi
-if [ -z $SEAF_USERNAME ]; then echo "The \$SEAF_USERNAME was not defined. Stopping container..."; echo 1; fi
-if [ -z $SEAF_PASSWORD ]; then echo "The \$SEAF_PASSWORD was not defined. Stopping container..."; echo 1; fi
-if [ -z $SEAF_LIBRARY_UUID ]; then echo "The \$SEAF_LIBRARY_UUID was not defined. Stopping container..."; echo 1; fi
+if [ -z $SEAF_SERVER_URL ]; then echo "The \$SEAF_SERVER_URL was not defined. Stopping container..."; exit 1; fi
+if [ -z $SEAF_USERNAME ]; then echo "The \$SEAF_USERNAME was not defined. Stopping container..."; exit 1; fi
+if [ -z $SEAF_PASSWORD ]; then echo "The \$SEAF_PASSWORD was not defined. Stopping container..."; exit 1; fi
+if [ -z $SEAF_LIBRARY_UUID ]; then echo "The \$SEAF_LIBRARY_UUID was not defined. Stopping container..."; exit 1; fi
 
 # Define variable shortcuts for readability purposes.
 seafile_ini=~/.ccnet/seafile.ini
