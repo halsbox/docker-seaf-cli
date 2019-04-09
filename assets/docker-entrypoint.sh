@@ -45,9 +45,9 @@ chown $UID.$GID -R /home/seafuser/entrypoint.sh
 
 # Run the Seafile client as the container user.
 su - $UNAME -c ' \
-    export SEAFILE_SERVER_URL=$SEAFILE_SERVER_URL \
-    export SEAF_USERNAME=$SEAF_USERNAME \
-    export SEAF_PASSWORD=$SEAF_PASSWORD \
-    export SEAF_LIBRARY_UUID=$SEAF_LIBRARY_UUID \
-    export UNAME=$UNAME \
+    export SEAFILE_SERVER_URL=$SEAFILE_SERVER_URL ;\
+    export SEAF_USERNAME=$SEAF_USERNAME ;\
+    export SEAF_PASSWORD=$SEAF_PASSWORD ;\
+    export SEAF_LIBRARY_UUID=$SEAF_LIBRARY_UUID ;\
+    export UNAME=$UNAME ;\
     /bin/bash /home/seafuser/entrypoint.sh'
