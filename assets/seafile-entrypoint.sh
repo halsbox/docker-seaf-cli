@@ -24,7 +24,6 @@ supervisord_pid=~/.supervisord/supervisord.pid
 supervisord_log=~/.supervisord/supervisord.log
 
 # Prepare the directories.
-mkdir ~/.ccnet
 mkdir ~/.seafile 
 mkdir ~/.supervisord
 mkdir ~/share
