@@ -30,8 +30,8 @@ supervisord_pid=/.supervisord/supervisord.pid
 supervisord_log=/.supervisord/supervisord.log
 
 # Update the file ownership.
-groupmod -u $GID $UNAME
 usermod -u $UID $UNAME
+groupmod -g $GID $UNAME
 chown $UID.$GID -R /.seafile
 chown $UID.$GID -R /.supervisord
 chown $UID.$GID -R /volume
