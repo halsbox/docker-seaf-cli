@@ -30,6 +30,7 @@ COPY assets/supervisord.conf /.supervisord/
 COPY assets/infinite-seaf-cli-start.sh /
 COPY assets/change-ownership.sh /
 COPY entrypoint.sh /
+RUN chmod 777 /entrypoint.sh
 
 # Safely import Seafile APT key, then install both seafile-cli and supervisord.
 COPY utils/build/import-seafile-apt-key.sh /
@@ -42,7 +43,6 @@ RUN rm -f /import-seafile-apt-key.sh
 ENV UNAME=seafuser
 ENV UID=1000
 ENV GID=1000
-RUN /bin/bash /change-ownership.sh
 USER $UNAME
 
 ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
