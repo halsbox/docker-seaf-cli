@@ -1,3 +1,7 @@
+## [1.1.0] - 2019/04/09
+- The container now actually use the UID/GID provided to it:  
+The container entrypoint is run with root, then another entrypoint is run by the container's user, seafuser, to run the Seafile client.
+
 ### [1.0.6] - 2019/03/25
 - More minor fixes from v1.0.4
 ### [1.0.5] - 2019/03/25
