@@ -22,18 +22,12 @@ if [ -z $SEAF_USERNAME ]; then echo "The \$SEAF_USERNAME was not defined. Stoppi
 if [ -z $SEAF_PASSWORD ]; then echo "The \$SEAF_PASSWORD was not defined. Stopping container..."; exit 1; fi
 if [ -z $SEAF_LIBRARY_UUID ]; then echo "The \$SEAF_LIBRARY_UUID was not defined. Stopping container..."; exit 1; fi
 
-# Define variable shortcuts for readability purposes.
-seafile_ini=~/.ccnet/seafile.ini
-seafile_sock=/.seafile/seafile-data/seafile.sock
-supervisord_conf=/.supervisord/supervisord.conf
-supervisord_pid=/.supervisord/supervisord.pid
-supervisord_log=/.supervisord/supervisord.log
-
 # Update the user ID, if the $UID changed.
 if [ "$UID" != "1000" ]; then
     usermod -u $UID $UNAME
     # What the $UID already exists ?
 fi
+
 # Change the group, if the $GID changed.
 if [ "$GID" != "1000" ]; then
     getent group | grep ":$GID:" >/dev/null
@@ -45,22 +39,9 @@ if [ "$GID" != "1000" ]; then
 fi
 
 # Set the files ownership.
-chown $UID.$GID -R /.seafile
-chown $UID.$GID -R /.supervisord
-chown $UID.$GID -R /volume
-chown $UID.$GID /entrypoint.sh
-chown $UID.$GID /infinite-seaf-cli-start.sh
+chown $UID.$GID -R /home/seafuser/supervisord.conf
+chown $UID.$GID -R /home/seafuser/infinite-seaf-cli-start.sh
+chown $UID.$GID -R /home/seafuser/entrypoint.sh
 
-# Safely initialize Seafile.
-su - $UNAME -c "/usr/bin/seaf-cli init -d /.seafile"
-while [ ! -f $seafile_ini ]; do sleep 1; done
-
-# Safely start the Seafile daemon.
-su - $UNAME -c "/usr/bin/seaf-cli start"
-while [ ! -S $seafile_sock ]; do sleep 1; done
-
-# Start the synchronisation.
-su - $UNAME -c  "/usr/bin/seaf-cli sync -u $SEAF_USERNAME -p $SEAF_PASSWORD -s $SEAF_SERVER_URL -l $SEAF_LIBRARY_UUID -d /volume"
-
-# Start the supervisord.
-su - $UNAME -c "/usr/bin/supervisord -u $UNAME -c $supervisord_conf -j $supervisord_pid -l $supervisord_log"
+# Run the Seafile client as the container user.
+su - $UNAME -c "/bin/bash /home/seafuser/entrypoint.sh"
