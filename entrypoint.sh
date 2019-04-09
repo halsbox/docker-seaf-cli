@@ -36,8 +36,8 @@ if [ "$UID" != "1000" ]; then
 fi
 # Change the group, if the $GID changed.
 if [ "$GID" != "1000" ]; then
-    getent group | grep ":$GID:" &>/dev/null
-    if [ $? -eq 1 ]; then
+    getent group | grep ":$GID:" >/dev/null
+    if [ $? -eq 0 ]; then
         usermod -g $GID -G 1000 $UNAME
     else
         groupmod -g $GID $UNAME
