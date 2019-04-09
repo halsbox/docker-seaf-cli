@@ -43,6 +43,8 @@ RUN rm -f /import-seafile-apt-key.sh
 ENV UNAME=seafuser
 ENV UID=1000
 ENV GID=1000
+RUN groupadd -g $GID -o $UNAME ;\
+    useradd -m -u $UID -g $GID -o -s /bin/bash $UNAME
 USER $UNAME
 
 ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
