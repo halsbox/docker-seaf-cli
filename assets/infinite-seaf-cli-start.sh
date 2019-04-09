@@ -16,8 +16,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-/bin/sleep 10
+set -x
+
+sleep 10
 while true; do
     /usr/bin/seaf-cli start
-    /bin/sleep 3600
+    sleep 3600
 done
