@@ -28,6 +28,7 @@ RUN mkdir /.seafile ;\
 COPY assets/seafile.list /etc/apt/sources.list.d/
 COPY assets/supervisord.conf /.supervisord/
 COPY assets/infinite-seaf-cli-start.sh /
+COPY assets/change-ownership.sh /
 COPY entrypoint.sh /
 
 # Safely import Seafile APT key, then install both seafile-cli and supervisord.
@@ -41,13 +42,7 @@ RUN rm -f /import-seafile-apt-key.sh
 ENV UNAME=seafuser
 ENV UID=1000
 ENV GID=1000
-RUN groupadd -g $GID -o $UNAME ;\
-    useradd -m -u $UID -g $GID -o -s /bin/bash $UNAME ;\
-    chown $UID.$GID -R /.seafile ;\
-    chown $UID.$GID -R /.supervisord ;\
-    chown $UID.$GID -R /volume ;\
-    chown $UID.$GID /entrypoint.sh ;\
-    chown $UID.$GID /infinite-seaf-cli-start.sh
+RUN /bin/bash /change-ownership.sh
 USER $UNAME
 
 ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
