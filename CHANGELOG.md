@@ -1,3 +1,5 @@
+### [1.1.2] - 2019/04/18
+- Slim down the Docker image, from 102MB to 67MB, gaining 35MB, reducing size by 34%.
 ### [1.1.1] - 2019/04/18
 - Because of the infinite-seaf-cli-start loop, within the container was running many seaf-daemons. Now, the infinite loop stop the current seaf-daemon before starting it again. (see #3)
 ## [1.1.0] - 2019/04/09
