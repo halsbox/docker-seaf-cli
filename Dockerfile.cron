@@ -18,15 +18,18 @@ FROM debian:jessie-slim
 
 # Prevent the packages installation to halt.
 ENV DEBIAN_FRONTEND noninteractive
+# Create the seafile client user.
+ENV UNAME=seafuser
+ENV UID=1000
+ENV GID=1000
 
 # Copy over the Docker related files.
-COPY utils/build/import-seafile-apt-key.sh assets/docker-entrypoint.sh /
-
-# Copy over the required files for Seafile/SupervisorD.
-COPY assets/infinite-seaf-cli-start.sh assets/seafile-entrypoint.sh /home/seafuser/
+COPY utils/build/import-seafile-apt-key.sh /
+COPY assets/docker-entrypoint.sh /entrypoint.sh
 
 # Safely import Seafile APT key, then install both seafile-cli and supervisord.
-RUN echo "deb http://deb.seadrive.org jessie main" \ > /etc/apt/source.list.d/seafile.list ;\
+RUN echo "deb http://deb.seadrive.org jessie main" \
+        > /etc/apt/source.list.d/seafile.list ;\
     bash /import-seafile-apt-key.sh ;\
     apt-get update ;\
     apt-get install \
@@ -45,13 +48,13 @@ RUN echo "deb http://deb.seadrive.org jessie main" \ > /etc/apt/source.list.d/se
             /import-seafile-apt-key.sh ;\
     mkdir /volume/ ;\
     echo "seafuser" > /etc/cron.allow ;\
-    echo "*/20 * * * * /bin/bash /home/seafuser/infinite-seaf-cli-start.sh" > /var/spool/cron/crontabs/seafuser
-
-# Create the seafile client user.
-ENV UNAME=seafuser
-ENV UID=1000
-ENV GID=1000
-RUN groupadd -g $GID -o $UNAME ;\
+    echo "*/20 * * * * /bin/bash /home/seafuser/infinite-seaf-cli-start.sh" \
+        > /var/spool/cron/crontabs/seafuser \;
+    groupadd -g $GID -o $UNAME ;\
     useradd -m -u $UID -g $GID -o -s /bin/bash $UNAME
 
-ENTRYPOINT ["/bin/bash", "/docker-entrypoint.sh"]
+# Copy over the required files for Seafile/SupervisorD.
+COPY assets/infinite-seaf-cli-start.sh /home/seafuser/
+COPY assets/seafile-entrypoint.sh /home/seafuser/entrypoint.sh
+
+ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]

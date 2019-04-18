@@ -18,10 +18,18 @@ FROM debian:jessie-slim
 
 # Prevent the packages installation to halt.
 ENV DEBIAN_FRONTEND noninteractive
+# Specify the user running Seafile.
+ENV UNAME=seafuser
+ENV UID=1000
+ENV GID=1000
+
+# Copy over the Docker related files.
+COPY utils/build/import-seafile-apt-key.sh /
+COPY assets/docker-entrypoint.sh /entrypoint.sh
 
 # Safely import Seafile APT key, then install both seafile-cli and supervisord.
-COPY utils/build/import-seafile-apt-key.sh /
-RUN echo "deb http://deb.seadrive.org jessie main" > /etc/apt/source.list.d/seafile.list ;\
+RUN echo "deb http://deb.seadrive.org jessie main" \
+        > /etc/apt/source.list.d/seafile.list ;\
     /bin/bash /import-seafile-apt-key.sh ;\
     apt-get update ;\
     apt-get install \
@@ -37,22 +45,13 @@ RUN echo "deb http://deb.seadrive.org jessie main" > /etc/apt/source.list.d/seaf
             /var/log/fsck/*.log \
             /var/log/apt/*.log \
             /var/cache/debconf/*.dat-old \
-            /import-seafile-apt-key.sh 
-
-# Create the seafile client user.
-ENV UNAME=seafuser
-ENV UID=1000
-ENV GID=1000
-RUN groupadd -g $GID -o $UNAME ;\
+            /import-seafile-apt-key.sh ;\
+    mkdir /volume ;\
+    groupadd -g $GID -o $UNAME ;\
     useradd -m -u $UID -g $GID -o -s /bin/bash $UNAME
 
-# Copy over the Docker entrypoint.
-COPY assets/docker-entrypoint.sh /entrypoint.sh
-
 # Copy over the required files for Seafile/SupervisorD.
-COPY assets/supervisord.conf /home/seafuser/
-COPY assets/infinite-seaf-cli-start.sh /home/seafuser/
+COPY assets/supervisord.conf assets/infinite-seaf-cli-start.sh /home/seafuser/
 COPY assets/seafile-entrypoint.sh /home/seafuser/entrypoint.sh
-RUN mkdir /volume
 
 ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
