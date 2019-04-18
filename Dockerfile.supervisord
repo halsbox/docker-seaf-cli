@@ -19,12 +19,10 @@ FROM debian:jessie-slim
 # Prevent the packages installation to halt.
 ENV DEBIAN_FRONTEND noninteractive
 
-# Copy over the seafile repository.
-COPY assets/seafile.list /etc/apt/sources.list.d/
-
 # Safely import Seafile APT key, then install both seafile-cli and supervisord.
 COPY utils/build/import-seafile-apt-key.sh /
-RUN /bin/bash /import-seafile-apt-key.sh ;\
+RUN echo "deb http://deb.seadrive.org jessie main" > /etc/apt/source.list.d/seafile.list ;\
+    /bin/bash /import-seafile-apt-key.sh ;\
     apt-get update ;\
     apt-get install \
         -o Dpkg::Options::="--force-confold" \
