@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-FROM debian:jessie
+FROM debian:jessie-slim
 
 # Prevent the packages installation to halt.
 ENV DEBIAN_FRONTEND noninteractive
@@ -26,8 +26,20 @@ COPY assets/seafile.list /etc/apt/sources.list.d/
 COPY utils/build/import-seafile-apt-key.sh /
 RUN /bin/bash /import-seafile-apt-key.sh ;\
     apt-get update ;\
-    apt-get install -o Dpkg::Options::="--force-confold" -y seafile-cli supervisor
-RUN rm -f /import-seafile-apt-key.sh
+    apt-get install \
+        -o Dpkg::Options::="--force-confold" \
+        -y \
+            seafile-cli \
+            supervisor ;\
+    apt-get clean ;\
+    apt-get autoclean \
+        -o APT::Clean-Installed=true ;\
+    rm \
+        -f \
+            /var/log/fsck/*.log \
+            /var/log/apt/*.log \
+            /var/cache/debconf/*.dat-old \
+            /import-seafile-apt-key.sh 
 
 # Create the seafile client user.
 ENV UNAME=seafuser
