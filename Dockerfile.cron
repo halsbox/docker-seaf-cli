@@ -50,7 +50,7 @@ RUN mkdir -p /etc/apt/sources.list.d/ ;\
     mkdir /volume/ ;\
     echo "seafuser" > /etc/cron.allow ;\
     echo "*/20 * * * * /bin/bash /home/seafuser/infinite-seaf-cli-start.sh" \
-        > /var/spool/cron/crontabs/seafuser \;
+        > /var/spool/cron/crontabs/seafuser ;\
     groupadd -g $GID -o $UNAME ;\
     useradd -m -u $UID -g $GID -o -s /bin/bash $UNAME
 
