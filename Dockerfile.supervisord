@@ -28,9 +28,9 @@ COPY utils/build/import-seafile-apt-key.sh /
 COPY assets/docker-entrypoint.sh /entrypoint.sh
 
 # Safely import Seafile APT key, then install both seafile-cli and supervisord.
-RUN mkdir -p /etc/apt/source.list.d/ ;\
+RUN mkdir -p /etc/apt/sources.list.d/ ;\
     echo "deb http://deb.seadrive.org jessie main" \
-        > /etc/apt/source.list.d/seafile.list ;\
+        > /etc/apt/sources.list.d/seafile.list ;\
     /bin/bash /import-seafile-apt-key.sh ;\
     apt-get update ;\
     apt-get install \
