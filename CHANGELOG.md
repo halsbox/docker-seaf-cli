@@ -1,3 +1,5 @@
+### [1.1.1] - 2019/04/18
+- Because of the infinite-seaf-cli-start loop, within the container was running many seaf-daemons. Now, the infinite loop stop the current seaf-daemon before starting it again. (see #3)
 ## [1.1.0] - 2019/04/09
 - The container now actually use the UID/GID provided to it:  
 The container entrypoint is run with root, then another entrypoint is run by the container's user, seafuser, to run the Seafile client.
