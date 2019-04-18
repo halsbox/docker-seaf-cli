@@ -20,6 +20,7 @@ set -x
 
 sleep 10
 while true; do
+    /usr/bin/seaf-cli stop
     /usr/bin/seaf-cli start
-    sleep 3600
+    sleep 1200
 done

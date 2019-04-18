@@ -1,4 +1,4 @@
-[![1.1.0 build status](https://gitlab.com/flwgns-docker/seafile-client/badges/1.1.0/pipeline.svg)](https://gitlab.com/flwgns-docker/seafile-client/commits/1.1.0)
+[![1.1.1 build status](https://gitlab.com/flwgns-docker/seafile-client/badges/1.1.1/pipeline.svg)](https://gitlab.com/flwgns-docker/seafile-client/commits/1.1.1)
 [![Docker pulls](https://img.shields.io/docker/pulls/flowgunso/seafile-client.svg)](https://hub.docker.com/r/flowgunso/seafile-client)
 [![Licensed under GPLv3](https://img.shields.io/badge/License-GPLv3-red.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![@gitlab.com/flwgns-docker/seafile-client](https://img.shields.io/badge/Code%20source-GitLab-red.svg)](https://gitlab.com/flwgns-docker/seafile-client/)
@@ -11,11 +11,11 @@ Permanent stable releases will not be built again.
 You can rely on the weekly stable releases. They are stable.
 
 ## Weekly stable releases.
-[`1`](https://gitlab.com/flwgns-docker/seafile-client/tags/1.1.0),
-[`1.1`](https://gitlab.com/flwgns-docker/seafile-client/tags/1.1.0),
-[`1.1.0`](https://gitlab.com/flwgns-docker/seafile-client/tags/1.1.0),
-[`latest`](https://gitlab.com/flwgns-docker/seafile-client/tags/1.1.0)
-(see tag/release [1.1.0](https://gitlab.com/flwgns-docker/seafile-client/tags/1.1.0))
+[`1`](https://gitlab.com/flwgns-docker/seafile-client/tags/1.1.1),
+[`1.1`](https://gitlab.com/flwgns-docker/seafile-client/tags/1.1.1),
+[`1.1.1`](https://gitlab.com/flwgns-docker/seafile-client/tags/1.1.1),
+[`latest`](https://gitlab.com/flwgns-docker/seafile-client/tags/1.1.1)
+(see tag/release [1.1.1](https://gitlab.com/flwgns-docker/seafile-client/tags/1.1.1))
 
 ## Permanent stable releases.
 None at the moment.
@@ -25,6 +25,8 @@ None at the moment.
 (see branch [staging](https://gitlab.com/flwgns-docker/seafile-client/tree/staging))
 
 ## Obsolete releases.
+[`1.1.0`](https://gitlab.com/flwgns-docker/seafile-client/tags/1.1.0) see [issue #3](https://gitlab.com/flwgns-docker/seafile-client/issues/3).
+
 [`1.0`](https://gitlab.com/flwgns-docker/seafile-client/tags/1.0.6) and it's revision 
 [`1.0.6`](https://gitlab.com/flwgns-docker/seafile-client/tags/1.0.6),
 [`1.0.3`](https://gitlab.com/flwgns-docker/seafile-client/tags/1.0.3),
