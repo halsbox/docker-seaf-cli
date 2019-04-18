@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-FROM debian:jessie
+FROM debian:jessie-slim
 
 # Prevent the packages installation to halt.
 ENV DEBIAN_FRONTEND noninteractive
