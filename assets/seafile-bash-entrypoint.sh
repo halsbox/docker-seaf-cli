@@ -33,3 +33,6 @@ while [ ! -S $seafile_sock ]; do sleep 1; done
 
 # Start the synchronisation.
 /usr/bin/seaf-cli sync -u $SEAF_USERNAME -p $SEAF_PASSWORD -s $SEAF_SERVER_URL -l $SEAF_LIBRARY_UUID -d /volume
+
+# Run the infinite Seafile restart.
+/bin/bash ~/infinite-seaf-cli-start.sh &
