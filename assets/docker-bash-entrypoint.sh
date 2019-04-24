@@ -52,5 +52,3 @@ su - $UNAME << EO
     export UNAME=$UNAME
     /bin/bash /home/seafuser/entrypoint.sh
 EO
-
-cron -f
