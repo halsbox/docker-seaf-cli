@@ -51,6 +51,7 @@ RUN mkdir -p /etc/apt/sources.list.d/ ;\
     echo "seafuser" > /etc/cron.allow ;\
     echo "*/20 * * * * /bin/bash /home/seafuser/infinite-seaf-cli-start.sh" \
         > /var/spool/cron/crontabs/seafuser ;\
+    touch /var/run/crond.pid ;\
     groupadd -g $GID -o $UNAME ;\
     useradd -m -u $UID -g $GID -o -s /bin/bash $UNAME
 
