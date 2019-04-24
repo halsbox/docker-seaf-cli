@@ -52,3 +52,5 @@ su - $UNAME << EO
     export UNAME=$UNAME
     /bin/bash /home/seafuser/entrypoint.sh
 EO
+
+nohup /bin/bash ~/infinite-seaf-cli-start.sh &
