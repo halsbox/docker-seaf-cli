@@ -53,4 +53,4 @@ su - $UNAME << EO
     /bin/bash /home/seafuser/entrypoint.sh
 EO
 
-nohup /bin/bash ~/infinite-seaf-cli-start.sh &
+exec /bin/bash ~/infinite-seaf-cli-start.sh &
