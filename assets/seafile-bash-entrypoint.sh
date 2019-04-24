@@ -35,4 +35,4 @@ while [ ! -S $seafile_sock ]; do sleep 1; done
 /usr/bin/seaf-cli sync -u $SEAF_USERNAME -p $SEAF_PASSWORD -s $SEAF_SERVER_URL -l $SEAF_LIBRARY_UUID -d /volume
 
 # Start the Seafile healthcheck as a disowned process.
-(/usr/bin/bash ~/infinite-seaf-cli-start.sh &)
+(/bin/bash ~/infinite-seaf-cli-start.sh &)
