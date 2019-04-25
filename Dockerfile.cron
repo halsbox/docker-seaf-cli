@@ -18,19 +18,26 @@ FROM debian:jessie-slim
 
 # Prevent the packages installation to halt.
 ENV DEBIAN_FRONTEND noninteractive
+# Create the seafile client user.
+ENV UNAME=seafuser
+ENV UID=1000
+ENV GID=1000
 
-# Copy over the seafile repository.
-COPY assets/seafile.list /etc/apt/sources.list.d/
+# Copy over the Docker related files.
+COPY utils/build/import-seafile-apt-key.sh /
+COPY assets/docker-cron-entrypoint.sh /entrypoint.sh
 
 # Safely import Seafile APT key, then install both seafile-cli and supervisord.
-COPY utils/build/import-seafile-apt-key.sh /
-RUN /bin/bash /import-seafile-apt-key.sh ;\
+RUN mkdir -p /etc/apt/sources.list.d/ ;\
+    echo "deb http://deb.seadrive.org jessie main" \
+        > /etc/apt/sources.list.d/seafile.list ;\
+    bash /import-seafile-apt-key.sh ;\
     apt-get update ;\
     apt-get install \
         -o Dpkg::Options::="--force-confold" \
         -y \
             seafile-cli \
-            supervisor ;\
+            cron ;\
     apt-get clean ;\
     apt-get autoclean \
         -o APT::Clean-Installed=true ;\
@@ -39,22 +46,16 @@ RUN /bin/bash /import-seafile-apt-key.sh ;\
             /var/log/fsck/*.log \
             /var/log/apt/*.log \
             /var/cache/debconf/*.dat-old \
-            /import-seafile-apt-key.sh 
-
-# Create the seafile client user.
-ENV UNAME=seafuser
-ENV UID=1000
-ENV GID=1000
-RUN groupadd -g $GID -o $UNAME ;\
+            /import-seafile-apt-key.sh ;\
+    mkdir /volume/ ;\
+    echo "seafuser" > /etc/cron.allow ;\
+    echo "*/20 * * * * /bin/bash /home/seafuser/infinite-seaf-cli-start.sh" \
+        > /var/spool/cron/crontabs/seafuser ;\
+    groupadd -g $GID -o $UNAME ;\
     useradd -m -u $UID -g $GID -o -s /bin/bash $UNAME
 
-# Copy over the Docker entrypoint.
-COPY assets/docker-entrypoint.sh /entrypoint.sh
-
 # Copy over the required files for Seafile/SupervisorD.
-COPY assets/supervisord.conf /home/seafuser/
 COPY assets/infinite-seaf-cli-start.sh /home/seafuser/
-COPY assets/seafile-entrypoint.sh /home/seafuser/entrypoint.sh
-RUN mkdir /volume
+COPY assets/seafile-cron-entrypoint.sh /home/seafuser/entrypoint.sh
 
 ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
