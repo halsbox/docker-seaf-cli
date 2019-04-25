@@ -44,12 +44,13 @@ Docker Seafile Client allow you to sync a Seafile library within a container.
 
 
 # Usage
-The *Seafile* daemon is running from `/.seafile/` and `~/.ccnet`.
+The *Seafile* daemon is running as the user `seafuser` from it's directories `~/.seafile/` and `~/.ccnet`.
+
 The library is synced at `/volume/`.
 
 The *Seafile* daemon is managed with *supervisord* since it can't run as a foreground process.
-The *supervisord* is running from `/.supervisord/`, the `supervisord.conf`, `supervisord.log` and `supervisord.pid` can be found there.  
-*supervisord* also manage a shell script, `/infinite-seaf-cli-start.sh` which run `seaf-cli start` every hour: the synchronisation might not work properly if `seaf-cli start` is not run from times to times, for an unresolved reason.
+The *supervisord* is running from `~/.supervisord/`, the `supervisord.conf`, `supervisord.log` and `supervisord.pid` can be found there.  
+*supervisord* also manage a shell script, `~/infinite-seaf-cli-start.sh` which stop then start the Seafile daemon every 20 minutes: the synchronisation might not work properly if the Seafile daemon is not restarted from times to times, for an unresolved reason.
 ## Examples
 You would have to share the path `/volume/` to other containers, with the following approaches:
 ### Docker CLI

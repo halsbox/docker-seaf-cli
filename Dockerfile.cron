@@ -49,13 +49,13 @@ RUN mkdir -p /etc/apt/sources.list.d/ ;\
             /import-seafile-apt-key.sh ;\
     mkdir /volume/ ;\
     echo "seafuser" > /etc/cron.allow ;\
-    echo "*/20 * * * * /bin/bash /home/seafuser/infinite-seaf-cli-start.sh" \
+    echo "*/20 * * * * /bin/bash /home/seafuser/seafile-healthcheck.sh" \
         > /var/spool/cron/crontabs/seafuser ;\
     groupadd -g $GID -o $UNAME ;\
     useradd -m -u $UID -g $GID -o -s /bin/bash $UNAME
 
 # Copy over the required files for Seafile/SupervisorD.
-COPY assets/infinite-seaf-cli-start.sh /home/seafuser/
+COPY assets/seafile-cron-healthcheck.sh /home/seafuser/seafile-healthcheck.sh
 COPY assets/seafile-cron-entrypoint.sh /home/seafuser/entrypoint.sh
 
 ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]

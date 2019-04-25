@@ -22,7 +22,6 @@ seafile_sock=~/.seafile/seafile-data/seafile.sock
 
 # Prepare the directories.
 mkdir ~/.seafile
-mkdir ~/.supervisord
 
 # Safely initialise the Seafile client.
 /usr/bin/seaf-cli init -d ~/.seafile

@@ -39,7 +39,7 @@ if [ "$GID" != "1000" ]; then
 fi
 
 # Set the files ownership.
-chown $UID.$GID /home/seafuser/infinite-seaf-cli-start.sh
+chown $UID.$GID /home/seafuser/seafile-healthcheck.sh
 chown $UID.$GID /home/seafuser/entrypoint.sh
 chown $UID.$GID -R /volume 
 

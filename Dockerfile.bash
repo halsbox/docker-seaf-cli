@@ -50,7 +50,7 @@ RUN mkdir -p /etc/apt/sources.list.d/ ;\
     useradd -m -u $UID -g $GID -o -s /bin/bash $UNAME
 
 # Copy over the required files for Seafile/SupervisorD.
-COPY assets/supervisord.conf assets/infinite-seaf-cli-start.sh /home/seafuser/
+COPY assets/seafile-healthcheck.sh /home/seafuser/
 COPY assets/seafile-bash-entrypoint.sh /home/seafuser/entrypoint.sh
 
 ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]

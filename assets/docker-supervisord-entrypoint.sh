@@ -25,7 +25,7 @@ if [ -z $SEAF_LIBRARY_UUID ]; then echo "The \$SEAF_LIBRARY_UUID was not defined
 # Update the user ID, if the $UID changed.
 if [ "$UID" != "1000" ]; then
     usermod -u $UID $UNAME
-    # What if the $UID already exists ?
+    # TODO: What if the $UID already exists ?
 fi
 
 # Change the group, if the $GID changed.
@@ -40,7 +40,7 @@ fi
 
 # Set the files ownership.
 chown $UID.$GID -R /home/seafuser/supervisord.conf
-chown $UID.$GID -R /home/seafuser/infinite-seaf-cli-start.sh
+chown $UID.$GID -R /home/seafuser/seafile-healthcheck.sh
 chown $UID.$GID -R /home/seafuser/entrypoint.sh
 chown $UID.$GID -R /volume
 
