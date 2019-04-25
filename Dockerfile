@@ -53,7 +53,7 @@ COPY assets/docker-entrypoint.sh /entrypoint.sh
 
 # Copy over the required files for Seafile/SupervisorD.
 COPY assets/supervisord.conf /home/seafuser/
-COPY assets/seaf-healthcheck.sh /home/seafuser/
+COPY assets/seafile-healthcheck.sh /home/seafuser/
 COPY assets/seafile-entrypoint.sh /home/seafuser/entrypoint.sh
 RUN mkdir /volume
 
