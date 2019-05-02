@@ -9,6 +9,13 @@ stages:
 before_script:
 - apk add bash
 
+cron_or_supervisord:
+  stage: build_publish
+  script:
+  - /bin/bash utils/publish/feature--cron-or-supervisord.sh
+  only:
+  - feature--cron-or-supervisord
+
 staging:
   stage: build_publish
   script:

@@ -40,7 +40,7 @@ fi
 
 # Set the files ownership.
 chown $UID.$GID -R /home/seafuser/supervisord.conf
-chown $UID.$GID -R /home/seafuser/infinite-seaf-cli-start.sh
+chown $UID.$GID -R /home/seafuser/seafile-healthcheck.sh
 chown $UID.$GID -R /home/seafuser/entrypoint.sh
 chown $UID.$GID -R /volume
 

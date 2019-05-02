@@ -16,11 +16,20 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-set -x
+# Define variable shortcuts for readability purposes.
+seafile_ini=~/.ccnet/seafile.ini
+seafile_sock=~/.seafile/seafile-data/seafile.sock
 
-sleep 10
-while true; do
-    /usr/bin/seaf-cli stop
-    /usr/bin/seaf-cli start
-    sleep 1200
-done
+# Prepare the directories.
+mkdir ~/.seafile
+
+# Safely initialise the Seafile client.
+/usr/bin/seaf-cli init -d ~/.seafile
+while [ ! -f $seafile_ini ]; do sleep 1; done
+
+# Safely start the Seafile daemon.
+/usr/bin/seaf-cli start
+while [ ! -S $seafile_sock ]; do sleep 1; done
+
+# Start the synchronisation.
+/usr/bin/seaf-cli sync -u $SEAF_USERNAME -p $SEAF_PASSWORD -s $SEAF_SERVER_URL -l $SEAF_LIBRARY_UUID -d /volume
