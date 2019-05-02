@@ -26,9 +26,9 @@ fi
 echo $CI_REGISTRY_BOT_PASSWORD | docker login -u $CI_REGISTRY_BOT_USERNAME docker.io --password-stdin
 
 # Build and push as staging.
-docker build -t index.docker.io/$CI_REGISTRY_IMAGE:staging-supervisord -f Dockerfile.supervisord .
-docker build -t index.docker.io/$CI_REGISTRY_IMAGE:staging-cron -f Dockerfile.cron .
-docker build -t index.docker.io/$CI_REGISTRY_IMAGE:staging-bash -f Dockerfile.bash .
+docker build -t index.docker.io/$CI_REGISTRY_IMAGE:staging-supervisord -f assets/supervisord/Dockerfile .
+docker build -t index.docker.io/$CI_REGISTRY_IMAGE:staging-cron -f assets/cron/Dockerfile .
+docker build -t index.docker.io/$CI_REGISTRY_IMAGE:staging-bash -f assets/bash/Dockerfile .
 docker push index.docker.io/$CI_REGISTRY_IMAGE:staging-supervisord
 docker push index.docker.io/$CI_REGISTRY_IMAGE:staging-cron
 docker push index.docker.io/$CI_REGISTRY_IMAGE:staging-bash
