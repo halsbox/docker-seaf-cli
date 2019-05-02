@@ -1,3 +1,6 @@
+## [1.2.0] - 2019/05/02
+- Replace _supervisord_ with _cron_ for running the front job that keeps the container up. It uses less resources.
+- Improve the __infinite-seaf-cli-start.sh__ into __seafile-healthcheck.sh__. The Seafile daemon will not be restarted if it's state are either _downloading_ or _committing_, which otherwise is problematic.
 ### [1.1.2] - 2019/04/18
 - Slim down the Docker image, from 102MB to 67MB, gaining 35MB, reducing size by 34%.
 ### [1.1.1] - 2019/04/18
