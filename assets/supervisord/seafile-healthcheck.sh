@@ -23,7 +23,7 @@
 # then it compares the statuses, when not empty, to the ones that do not require a restart. Finally either restart or don't.
 
 seaf=/usr/bin/seaf-cli
-dont_restart_on=("downloading" "committing" "waiting for sync")
+dont_restart_on=("downloading" "committing")
 restart=true
 
 sleep 10s
