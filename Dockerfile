@@ -18,26 +18,26 @@ FROM debian:jessie-slim
 
 # Prevent the packages installation to halt.
 ENV DEBIAN_FRONTEND noninteractive
-# Specify the user running Seafile.
+# Create the seafile client user.
 ENV UNAME=seafuser
 ENV UID=1000
 ENV GID=1000
 
 # Copy over the Docker related files.
 COPY utils/build/import-seafile-apt-key.sh /
-COPY assets/docker-supervisord-entrypoint.sh /entrypoint.sh
+COPY assets/cron/docker-entrypoint.sh /entrypoint.sh
 
 # Safely import Seafile APT key, then install both seafile-cli and supervisord.
 RUN mkdir -p /etc/apt/sources.list.d/ ;\
     echo "deb http://deb.seadrive.org jessie main" \
         > /etc/apt/sources.list.d/seafile.list ;\
-    /bin/bash /import-seafile-apt-key.sh ;\
+    bash /import-seafile-apt-key.sh ;\
     apt-get update ;\
     apt-get install \
         -o Dpkg::Options::="--force-confold" \
         -y \
             seafile-cli \
-            supervisor ;\
+            cron ;\
     apt-get clean ;\
     apt-get autoclean \
         -o APT::Clean-Installed=true ;\
@@ -47,12 +47,15 @@ RUN mkdir -p /etc/apt/sources.list.d/ ;\
             /var/log/apt/*.log \
             /var/cache/debconf/*.dat-old \
             /import-seafile-apt-key.sh ;\
-    mkdir /volume ;\
+    mkdir /volume/ ;\
+    echo "seafuser" > /etc/cron.allow ;\
+    echo "*/20 * * * * /bin/bash /home/seafuser/seafile-healthcheck.sh" \
+        > /var/spool/cron/crontabs/seafuser ;\
     groupadd -g $GID -o $UNAME ;\
     useradd -m -u $UID -g $GID -o -s /bin/bash $UNAME
 
 # Copy over the required files for Seafile/SupervisorD.
-COPY assets/supervisord.conf assets/seafile-healthcheck.sh /home/seafuser/
-COPY assets/seafile-supervisord-entrypoint.sh /home/seafuser/entrypoint.sh
+COPY assets/cron/seafile-healthcheck.sh /home/seafuser/seafile-healthcheck.sh
+COPY assets/cron/seafile-entrypoint.sh /home/seafuser/entrypoint.sh
 
 ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
