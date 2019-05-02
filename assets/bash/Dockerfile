@@ -25,7 +25,7 @@ ENV GID=1000
 
 # Copy over the Docker related files.
 COPY utils/build/import-seafile-apt-key.sh /
-COPY assets/docker-bash-entrypoint.sh /entrypoint.sh
+COPY assets/bash/docker-entrypoint.sh /entrypoint.sh
 
 # Safely import Seafile APT key, then install both seafile-cli and supervisord.
 RUN mkdir -p /etc/apt/sources.list.d/ ;\
@@ -50,7 +50,7 @@ RUN mkdir -p /etc/apt/sources.list.d/ ;\
     useradd -m -u $UID -g $GID -o -s /bin/bash $UNAME
 
 # Copy over the required files for Seafile/SupervisorD.
-COPY assets/seafile-healthcheck.sh /home/seafuser/
-COPY assets/seafile-bash-entrypoint.sh /home/seafuser/entrypoint.sh
+COPY assets/bash/seafile-healthcheck.sh /home/seafuser/
+COPY assets/bash/seafile-entrypoint.sh /home/seafuser/entrypoint.sh
 
 ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
