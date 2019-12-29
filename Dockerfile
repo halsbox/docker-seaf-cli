@@ -28,30 +28,30 @@ COPY utils/build/import-seafile-apt-key.sh /
 COPY assets/cron/docker-entrypoint.sh /entrypoint.sh
 
 # Safely import Seafile APT key, then install both seafile-cli and supervisord.
-RUN mkdir -p /etc/apt/sources.list.d/ ;\
+RUN mkdir -p /etc/apt/sources.list.d/ && \
     echo "deb http://deb.seadrive.org jessie main" \
-        > /etc/apt/sources.list.d/seafile.list ;\
-    bash /import-seafile-apt-key.sh ;\
-    apt-get update ;\
+        > /etc/apt/sources.list.d/seafile.list && \
+    bash /import-seafile-apt-key.sh && \
+    apt-get update && \
     apt-get install \
         -o Dpkg::Options::="--force-confold" \
         -y \
             seafile-cli \
-            cron ;\
-    apt-get clean ;\
+            cron && \
+    apt-get clean && \
     apt-get autoclean \
-        -o APT::Clean-Installed=true ;\
+        -o APT::Clean-Installed=true && \
     rm \
         -f \
             /var/log/fsck/*.log \
             /var/log/apt/*.log \
             /var/cache/debconf/*.dat-old \
-            /import-seafile-apt-key.sh ;\
-    mkdir /volume/ ;\
-    echo "seafuser" > /etc/cron.allow ;\
+            /import-seafile-apt-key.sh && \
+    mkdir /volume/ && \
+    echo "seafuser" > /etc/cron.allow && \
     echo "*/20 * * * * /bin/bash /home/seafuser/seafile-healthcheck.sh" \
-        > /var/spool/cron/crontabs/seafuser ;\
-    groupadd -g $GID -o $UNAME ;\
+        > /var/spool/cron/crontabs/seafuser && \
+    groupadd -g $GID -o $UNAME && \
     useradd -m -u $UID -g $GID -o -s /bin/bash $UNAME
 
 # Copy over the required files for Seafile/SupervisorD.
