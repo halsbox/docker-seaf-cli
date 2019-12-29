@@ -27,11 +27,11 @@
 apk add curl jq
 
 # Get a token from hub.docker.com with the owner credentials.
-token=$(curl -s \
+token=$(curl https://hub.docker.com/v2/users/login/ \
         -X POST \
         -H "Content-Type: application/json" \
         -d '{"username": "'"$CI_REGISTRY_OWNER_USERNAME"'", "password": "'"$CI_REGISTRY_OWNER_PASSWORD"'"}' \
-        https://hub.docker.com/v2/users/login/ | jq -r .token)
+        | jq -r .token)
 echo $token
 echo
 
@@ -43,10 +43,10 @@ echo $json
 echo
 
 # Update the Docker Hub repository's full_description.
-curl -s -L \
+curl https://cloud.docker.com/v2/repositories/$CI_REGISTRY_IMAGE/ \
     -X PATCH \
-    -d "$json" \
+    -d '$json' \
+    -H "Accept: application/json" \
     -H "Content-Type: application/json" \
-    -H "Authorization: JWT $token" \
-    https://cloud.docker.com/v2/repositories/$CI_REGISTRY_IMAGE/
+    -H "Authorization: JWT $token"
 echo $?
