@@ -1,3 +1,8 @@
+### [1.2.1] - 2019/05/02
+- Fix #4:
+  - Switch base image from Debian oldoldstable Jessie to Debian stable Buster to fix unmet dependencies of `seafile-cli` to `python-future` and `python-searpc`
+  - Replace `;` with `&&` as commands separators in the Dockerfile's `RUN` to properly report failed commands at CI
+
 ## [1.2.0] - 2019/05/02
 - Replace _supervisord_ with _cron_ for running the front job that keeps the container up. It uses less resources.
 - Improve the __infinite-seaf-cli-start.sh__ into __seafile-healthcheck.sh__. The Seafile daemon will not be restarted if it's state are either _downloading_ or _committing_, which otherwise is problematic.

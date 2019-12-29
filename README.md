@@ -1,4 +1,4 @@
-[![1.2.0 build status](https://gitlab.com/flwgns-docker/seafile-client/badges/1.2.0/pipeline.svg)](https://gitlab.com/flwgns-docker/seafile-client/commits/1.2.0)
+[![1.2.1 build status](https://gitlab.com/flwgns-docker/seafile-client/badges/1.2.1/pipeline.svg)](https://gitlab.com/flwgns-docker/seafile-client/commits/1.2.1)
 [![Docker pulls](https://img.shields.io/docker/pulls/flowgunso/seafile-client.svg)](https://hub.docker.com/r/flowgunso/seafile-client)
 [![Licensed under GPLv3](https://img.shields.io/badge/License-GPLv3-red.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![@gitlab.com/flwgns-docker/seafile-client](https://img.shields.io/badge/Source%20code-GitLab-red.svg)](https://gitlab.com/flwgns-docker/seafile-client/)
@@ -9,10 +9,10 @@ Weekly stable release are built every Monday at 6AM UTC+2.
 Permanent stable releases will not be built again.
 
 ## Weekly stable releases.
-[`1`](https://gitlab.com/flwgns-docker/seafile-client/tags/1.2.0),
-[`1.2`](https://gitlab.com/flwgns-docker/seafile-client/tags/1.2.0),
-[`1.2.0`](https://gitlab.com/flwgns-docker/seafile-client/tags/1.2.0),
-[`latest`](https://gitlab.com/flwgns-docker/seafile-client/tags/1.2.0)
+[`1`](https://gitlab.com/flwgns-docker/seafile-client/tags/1.2.1),
+[`1.2`](https://gitlab.com/flwgns-docker/seafile-client/tags/1.2.1),
+[`1.2.1`](https://gitlab.com/flwgns-docker/seafile-client/tags/1.2.1),
+[`latest`](https://gitlab.com/flwgns-docker/seafile-client/tags/1.2.1)
 
 ## Developmental releases.
 [`staging`](https://gitlab.com/flwgns-docker/seafile-client/tree/staging):
