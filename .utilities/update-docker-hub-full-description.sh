@@ -22,7 +22,6 @@
 # This action can only be done with the actual owner of the repository,
 # unless you can extend the collaborator's permissions but as far as I know, you can't.
 
-set -x
 
 # Install required system packages.
 apk add curl jq
@@ -33,11 +32,15 @@ token=$(curl -s \
         -H "Content-Type: application/json" \
         -d '{"username": "'"$CI_REGISTRY_OWNER_USERNAME"'", "password": "'"$CI_REGISTRY_OWNER_PASSWORD"'"}' \
         https://hub.docker.com/v2/users/login/ | jq -r .token)
+echo $token
+echo
 
 # Generate a JSON with the README.md as the full_description.
 json=$(jq -n \
     --arg readme "$(<README.md)" \
     '{"full_description": $readme}')
+echo $json
+echo
 
 # Update the Docker Hub repository's full_description.
 curl -s -L \
@@ -46,3 +49,4 @@ curl -s -L \
     -H "Content-Type: application/json" \
     -H "Authorization: JWT $token" \
     https://cloud.docker.com/v2/repositories/$CI_REGISTRY_IMAGE/
+echo $?
