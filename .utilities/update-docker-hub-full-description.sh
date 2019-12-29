@@ -22,6 +22,8 @@
 # This action can only be done with the actual owner of the repository,
 # unless you can extend the collaborator's permissions but as far as I know, you can't.
 
+set -x
+
 # Install required system packages.
 apk add curl jq
 
