@@ -46,7 +46,5 @@ echo
 curl https://cloud.docker.com/v2/repositories/$CI_REGISTRY_IMAGE/ \
     -X PATCH \
     -d '$json' \
-    -H "Accept: application/json" \
     -H "Content-Type: application/json" \
     -H "Authorization: JWT $token"
-echo $?
