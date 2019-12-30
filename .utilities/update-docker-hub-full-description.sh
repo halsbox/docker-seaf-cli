@@ -42,9 +42,11 @@ json=$(jq -n \
 echo $json
 echo
 
+set -x
 # Update the Docker Hub repository's full_description.
 curl https://cloud.docker.com/v2/repositories/$CI_REGISTRY_IMAGE/ \
     -X PATCH \
     -d '$json' \
     -H "Content-Type: application/json" \
     -H "Authorization: JWT $token"
+set +x
