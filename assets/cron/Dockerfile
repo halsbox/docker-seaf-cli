@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-FROM debian:jessie-slim
+FROM debian:buster-slim
 
 # Prevent the packages installation to halt.
 ENV DEBIAN_FRONTEND noninteractive
@@ -28,30 +28,35 @@ COPY utils/build/import-seafile-apt-key.sh /
 COPY assets/cron/docker-entrypoint.sh /entrypoint.sh
 
 # Safely import Seafile APT key, then install both seafile-cli and supervisord.
-RUN mkdir -p /etc/apt/sources.list.d/ ;\
-    echo "deb http://deb.seadrive.org jessie main" \
-        > /etc/apt/sources.list.d/seafile.list ;\
-    bash /import-seafile-apt-key.sh ;\
-    apt-get update ;\
+RUN mkdir -p /etc/apt/sources.list.d/ && \
+    apt-get update && \
+    apt-get install -y gnupg && \
+    echo "deb http://deb.seadrive.org buster main" \
+        > /etc/apt/sources.list.d/seafile.list && \
+    bash /import-seafile-apt-key.sh && \
+    apt-get remove -y gnupg && \
+    apt-get autoremove -y && \
+    apt-get update && \
     apt-get install \
         -o Dpkg::Options::="--force-confold" \
         -y \
             seafile-cli \
-            cron ;\
-    apt-get clean ;\
+            cron && \
+    apt-get clean && \
     apt-get autoclean \
-        -o APT::Clean-Installed=true ;\
+        -o APT::Clean-Installed=true && \
     rm \
-        -f \
+        -rf \
             /var/log/fsck/*.log \
             /var/log/apt/*.log \
             /var/cache/debconf/*.dat-old \
-            /import-seafile-apt-key.sh ;\
-    mkdir /volume/ ;\
-    echo "seafuser" > /etc/cron.allow ;\
+            /var/lib/apt/lists/* \
+            /import-seafile-apt-key.sh && \
+    mkdir /volume/ && \
+    echo "seafuser" > /etc/cron.allow && \
     echo "*/20 * * * * /bin/bash /home/seafuser/seafile-healthcheck.sh" \
-        > /var/spool/cron/crontabs/seafuser ;\
-    groupadd -g $GID -o $UNAME ;\
+        > /var/spool/cron/crontabs/seafuser && \
+    groupadd -g $GID -o $UNAME && \
     useradd -m -u $UID -g $GID -o -s /bin/bash $UNAME
 
 # Copy over the required files for Seafile/SupervisorD.
