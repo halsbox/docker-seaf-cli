@@ -36,17 +36,16 @@ echo $token
 echo
 
 # Generate a JSON with the README.md as the full_description.
-json=$(jq -n \
+jq -n \
     --arg readme "$(<README.md)" \
-    '{"full_description": $readme}')
-echo $json
-echo
+    '{"full_description": $readme}' \
+    > full_description.json
 
 set -x
 # Update the Docker Hub repository's full_description.
 curl https://cloud.docker.com/v2/repositories/$CI_REGISTRY_IMAGE/ \
     -X PATCH \
-    -d $json \
+    -d @full_description.json \
     -H "Content-Type: application/json" \
     -H "Authorization: JWT $token"
 set +x
