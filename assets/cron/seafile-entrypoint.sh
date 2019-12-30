@@ -31,5 +31,12 @@ while [ ! -f $seafile_ini ]; do sleep 1; done
 /usr/bin/seaf-cli start
 while [ ! -S $seafile_sock ]; do sleep 1; done
 
+# Set the disable_verify_certificate key to true only if the environment variable is true.
+test "$SEAF_SKIP_SSL_CERT" = true && seaf-cli config -k disable_verify_certificate -v true
+
+# Set the upload/download limits
+test -n "$SEAF_UPLOAD_LIMIT" && seaf-cli config -k upload_limit -v $SEAF_UPLOAD_LIMIT
+test -n "$SEAF_DOWNLOAD_LIMIT" && seaf-cli config -k download_limit -v $SEAF_DOWNLOAD_LIMIT
+
 # Start the synchronisation.
 /usr/bin/seaf-cli sync -u $SEAF_USERNAME -p $SEAF_PASSWORD -s $SEAF_SERVER_URL -l $SEAF_LIBRARY_UUID -d /volume
