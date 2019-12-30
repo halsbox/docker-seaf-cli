@@ -22,6 +22,7 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV UNAME=seafuser
 ENV UID=1000
 ENV GID=1000
+ENV SEAF_SKIP_SSL_CERT=1
 
 # Copy over the Docker related files.
 COPY utils/build/import-seafile-apt-key.sh /
