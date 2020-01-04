@@ -1,40 +1,48 @@
 image: docker:latest
 
 services:
-- docker:dind
+  - docker:dind
 
 stages:
-- build_publish
+  - build
+  - test
+  - publish
 
 before_script:
-- apk add bash
+  - apk add bash
 
-cron_or_supervisord:
-  stage: build_publish
-  script:
-  - /bin/bash utils/publish/feature--cron-or-supervisord.sh
+build:
+  stage: build
+  script: /bin/bash .utilities/build.sh
   only:
-  - feature--cron-or-supervisord
+    - tags
+    - schedules
+  artifacts:
+    path:
+      - $CI_PROJECT_NAME.tar
 
-staging:
-  stage: build_publish
-  script:
-  - /bin/bash utils/publish/staging.sh
+test:
+  stage: test
+  script: /bin/bash .utilities/test.sh
   only:
-  - staging
+    - tags
+    - schedules
+  artifacts:
+    path:
+      - $CI_PROJECT_NAME.tar
 
-production:
-  stage: build_publish
-  script:
-  - /bin/bash utils/publish/production.sh
+publish:
+  stage: publish
+  script: /bin/bash .utilities/publish.sh
   only:
-  - tags
-  except:
-  - branches
+    - tags
+    - schedules
+  artifacts:
+    path:
+      - $CI_PROJECT_NAME.tar
 
 update_docker_hub_full_description:
-  stage: build_publish
-  script:
-    - /bin/bash utils/publish/update-docker-hub-full-description.sh
+  stage: publish
+  script: /bin/bash .utilities/update-docker-hub-full-description.sh
   only:
     - master
