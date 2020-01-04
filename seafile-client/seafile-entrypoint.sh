@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Docker Seafile client, help you mount a Seafile library as a volume.
-# Copyright (C) 2019, flow.gunso@gmail.com
+# Copyright (C) 2019-2020, flow.gunso@gmail.com
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -35,8 +35,13 @@ while [ ! -S $seafile_sock ]; do sleep 1; done
 test "$SEAF_SKIP_SSL_CERT" = true && seaf-cli config -k disable_verify_certificate -v true
 
 # Set the upload/download limits
-test -n "$SEAF_UPLOAD_LIMIT" && seaf-cli config -k upload_limit -v $SEAF_UPLOAD_LIMIT
+test -n "$SEAF_PLOAD_LIMIT" && seaf-cli config -k upload_limit -v $SEAF_UPLOAD_LIMIT
 test -n "$SEAF_DOWNLOAD_LIMIT" && seaf-cli config -k download_limit -v $SEAF_DOWNLOAD_LIMIT
 
-# Start the synchronisation.
-/usr/bin/seaf-cli sync -u $SEAF_USERNAME -p $SEAF_PASSWORD -s $SEAF_SERVER_URL -l $SEAF_LIBRARY_UUID -d /volume
+# Build the seaf-cli sync command.
+cmd="seaf-cli sync -u $SEAF_USERNAME -p $SEAF_PASSWORD -s $SEAF_SERVER_URL -l $SEAF_LIBRARY_UUID"
+test $SEAF_2FA_SECRET && cmd+=" -a $(oathlib --base32 --totp $SEAF_2FA_SECRET)"
+test $SEAF_LIBRARY_PASSWORD && cmd+=" -e $SEAF_LIBRARY_PASSWORD"
+
+# Run it.
+if ! eval $cmd; then echo "Failed to sync"; exit 1; fi

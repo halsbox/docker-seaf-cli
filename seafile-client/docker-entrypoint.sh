@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Docker Seafile client, help you mount a Seafile library as a volume.
-# Copyright (C) 2019, flow.gunso@gmail.com
+# Copyright (C) 2019-2020, flow.gunso@gmail.com
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -33,17 +33,26 @@ if [ -z $SEAF_LIBRARY_UUID ]; then
     echo "The \$SEAF_LIBRARY_UUID is not defined. Stopping container..."
 	exit 1
 fi
-if [ -n "$SEAF_UPLOAD_LIMIT" ]
-&& [[ $SEAF_UPLOAD_LIMIT =~ ^[0-9]+$ ]]
-&& [ "$SEAF_UPLOAD_LIMIT" -gt 0 ]; then
+if [[ -n "$SEAF_UPLOAD_LIMIT"
+&& $SEAF_UPLOAD_LIMIT =~ ^[0-9]+$
+&& "$SEAF_UPLOAD_LIMIT" -gt 0 ]]; then
     echo "The \$SEAF_UPLOAD_LIMIT is not an integer greater than 0. Stopping container..."
     exit 1
 fi
-if [ -n "$SEAF_DOWNLOAD_LIMIT" ]
-&& [[ $SEAF_DOWNLOAD_LIMIT =~ ^[0-9]+$ ]]
-&& [ "$SEAF_DOWNLOAD_LIMIT" -gt 0 ]; then
+if [[ -n "$SEAF_DOWNLOAD_LIMIT"
+&& $SEAF_DOWNLOAD_LIMIT =~ ^[0-9]+$
+&& "$SEAF_DOWNLOAD_LIMIT" -gt 0 ]]; then
     echo "The \$SEAF_DOWNLOAD_LIMIT is not an integer greater than 0. Stopping container..."
     exit 1
+fi
+if [ -n "$SEAF_2FA_SECRET" ]; then
+    curl -X POST http://2fa:1880/auth \
+    -H "Content-Type: application/json" \
+    -d '{"secret":"YWAMNW7YTTB2QDU6ENTJ4LIPUYFUG4SW","key":"docker-seaf-cli","desc":"/"}'
+    if [ $? -ne 0 ]; then
+        echo "Could create an 2FA token provider at $SEAF_2FA_PROVIDER. curl error $?"
+        exit 1
+    fi
 fi
 
 # Update the user ID, if the $UID changed.
@@ -76,6 +85,8 @@ su - $UNAME << EO
     export SEAF_SKIP_SSL_CERT=$SEAF_SKIP_SSL_CERT
     test -n "$SEAF_UPLOAD_LIMIT" && export SEAF_UPLOAD_LIMIT=$SEAF_UPLOAD_LIMIT
     test -n "$SEAF_DOWNLOAD_LIMIT" && export SEAF_DOWNLOAD_LIMIT=$SEAF_DOWNLOAD_LIMIT
+    test -n "$SEAF_2FA_SECRET" && export SEAF_2FA_SECRET=$SEAF_2FA_SECRET
+    test -n "$SEAF_LIBRARY_PASSWORD" && export SEAF_LIBRARY_PASSWORD=$SEAF_LIBRARY_PASSWORD
     export UNAME=$UNAME
     /bin/bash /home/seafuser/entrypoint.sh
 EO
