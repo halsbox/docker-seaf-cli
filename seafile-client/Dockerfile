@@ -66,4 +66,4 @@ COPY tests /tests
 
 ENTRYPOINT ["/bin/bash", "--"]
 CMD ["/entrypoint.sh"]
-HEALTHCHECK --interval=5m --start-period=20s --retries=1 CMD ["su", "-", "${UNAME}", "-c", "/healthcheck.sh"]
+HEALTHCHECK --start-period=20s --retries=1 CMD ["su", "-", "${UNAME}", "-c", "/healthcheck.sh"]
