@@ -45,3 +45,6 @@ test $SEAF_LIBRARY_PASSWORD && cmd+=" -e $SEAF_LIBRARY_PASSWORD"
 
 # Run it.
 if ! eval $cmd; then echo "Failed to sync"; exit 1; fi
+
+# Continously print the log.
+tail -f ~/.ccnet/logs/seafile.log
