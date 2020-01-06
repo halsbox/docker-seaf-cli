@@ -20,9 +20,6 @@
 seafile_ini=~/.ccnet/seafile.ini
 seafile_sock=~/.seafile/seafile-data/seafile.sock
 
-# Prepare the directories.
-mkdir ~/.seafile
-
 # Safely initialise the Seafile client.
 /usr/bin/seaf-cli init -d ~/.seafile
 while [ ! -f $seafile_ini ]; do sleep 1; done

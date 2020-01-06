@@ -60,7 +60,9 @@ RUN apt-get update && apt-get install -y gnupg && \
         /import-seafile-apt-key.sh && \
     mkdir /volume/ && \
     groupadd -g $GID -o $UNAME && \
-    useradd -m -u $UID -g $GID -o -s /bin/bash $UNAME
+    useradd -m -u $UID -g $GID -o -s /bin/bash $UNAME && \
+    mkdir /home/$UNAME/.seafile && \
+    chown $UNAME:$GID /home/$UNAME/.seafile 
 
 # Copy over the entrypoints, healthchecks and tests.
 COPY docker-entrypoint.sh /entrypoint.sh
