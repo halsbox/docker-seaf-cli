@@ -71,7 +71,6 @@ COPY seafile-healthcheck.sh /home/seafuser/healthcheck.sh
 COPY seafile-entrypoint.sh /home/seafuser/entrypoint.sh
 COPY tests /tests
 
-# Set bash as the entrypoint and run the entrypoint script from that.
-ENTRYPOINT ["/bin/bash"]
+ENTRYPOINT ["/bin/bash", "--"]
 CMD ["/entrypoint.sh"]
 HEALTHCHECK --interval=5m --start-period=20s --retries=1 CMD ["su", "-", "${UNAME}", "-c", "/healthcheck.sh"]
