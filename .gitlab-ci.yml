@@ -17,6 +17,7 @@ build:
   only:
     - tags
     - schedules
+    - milestone--2.0
   artifacts:
     path:
       - $CI_PROJECT_NAME.tar
@@ -27,6 +28,7 @@ test:
   only:
     - tags
     - schedules
+    - milestone--2.0
   artifacts:
     path:
       - $CI_PROJECT_NAME.tar
