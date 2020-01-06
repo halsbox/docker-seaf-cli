@@ -61,7 +61,7 @@ RUN apt-get update && apt-get install -y gnupg && \
 COPY docker-entrypoint.sh /entrypoint.sh
 COPY docker-healthcheck.sh /healthcheck.sh
 COPY seafile-entrypoint.sh /home/seafuser/entrypoint.sh
-COPY seafile-healthcheck.sh /home/seafuser/healthcheck.sh
+#COPY seafile-healthcheck.sh /home/seafuser/healthcheck.sh
 COPY tests /tests
 
 ENTRYPOINT ["/bin/bash", "--"]
