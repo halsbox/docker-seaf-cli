@@ -51,7 +51,7 @@ RUN apt-get update && apt-get install -y gnupg && \
         /var/cache/debconf/*.dat-old \
         /var/lib/apt/lists/* \
         /import-seafile-apt-key.sh && \
-    mkdir /volume/ && \
+    mkdir /library/ && \
     groupadd -g $GID -o $UNAME && \
     useradd -m -u $UID -g $GID -o -s /bin/bash $UNAME && \
     mkdir /home/$UNAME/.seafile && \

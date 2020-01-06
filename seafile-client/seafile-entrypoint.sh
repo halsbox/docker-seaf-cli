@@ -34,7 +34,7 @@ while [ ! -S $seafile_sock ]; do sleep 1; done
 [[ "$SEAF_DOWNLOAD_LIMIT" ]] && seaf-cli config -k download_limit -v $SEAF_DOWNLOAD_LIMIT
 
 # Build the seaf-cli sync command.
-cmd="seaf-cli sync -u $SEAF_USERNAME -p $SEAF_PASSWORD -s $SEAF_SERVER_URL -l $SEAF_LIBRARY_UUID -d /volume"
+cmd="seaf-cli sync -u $SEAF_USERNAME -p $SEAF_PASSWORD -s $SEAF_SERVER_URL -l $SEAF_LIBRARY_UUID -d /library"
 [[ "$SEAF_2FA_SECRET" ]] && cmd+=" -a $(oathtool --base32 --totp $SEAF_2FA_SECRET)"
 [[ "$SEAF_LIBRARY_PASSWORD" ]] && cmd+=" -e $SEAF_LIBRARY_PASSWORD"
 

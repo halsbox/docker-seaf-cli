@@ -5,7 +5,7 @@ services:
     image: flowgunso/seafile-client:latest
     restart: on-failure
     volumes:
-      - your_shared_volume:/volume
+      - your_shared_volume:/library
     environment:
       SEAF_SERVER_URL: ""         # The URL to your Seafile server.
       SEAF_USERNAME: ""           # Your Seafile username.
