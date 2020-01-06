@@ -7,12 +7,15 @@ services:
     volumes:
       - your_shared_volume:/volume
     environment:
-      - SEAF_SERVER_URL=    # The URL to your Seafile server.
-      - SEAF_USERNAME=      # Your Seafile username.
-      - SEAF_PASSWORD=      # Your Seafile password.
-      - SEAF_LIBRARY_UUID=  # The Seafile library UUID you want to sync with.
-      - UID=                # Default is 1000.
-      - GID=                # Default is 1000.
+      SEAF_SERVER_URL: ""         # The URL to your Seafile server.
+      SEAF_USERNAME: ""           # Your Seafile username.
+      SEAF_PASSWORD: ""           # Your Seafile password.
+      SEAF_LIBRARY_UUID: ""       # The Seafile library UUID you want to sync with.
+#      SEAF_LIBRARY_PASSWORD: ""   # The Seafile library password, if required.
+#      SEAF_SKIP_SSL_CERT: "true"  # Any string is true, omit to set to false.
+#      SEAF_2FA_SECRET: ""         # The 2FA secret key available at Seafile 2FA setup.
+#      UID: ""                     # Default is 1000.
+#      GID: ""                     # Default is 1000.
 
 volumes:
   your_shared_volume:
