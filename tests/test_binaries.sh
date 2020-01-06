@@ -17,7 +17,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 failures=()
-binaries=(seaf-cli cron oathtool)
+binaries=(seaf-cli oathtool)
 
 for binary in "${binaries[@]}"; do
     if ! [ -x "$(command -v $binary)" ]; then
