@@ -16,11 +16,11 @@
 
 FROM debian:buster-slim
 
-# For MicroBadger.
 ARG BUILD_DATE
 ARG VCS_REF
 ARG VERSION
-LABEL org.label-schema.build-date=$BUILD_DATE \
+LABEL maintainer="flow.gunso@gmail.com" \
+    org.label-schema.build-date=$BUILD_DATE \
     org.label-schema.name="Seafile Docker client" \
     org.label-schema.description="Sync Seafile librairies within Docker containers." \
     org.label-schema.url=$CI_PROJECT_URL \
