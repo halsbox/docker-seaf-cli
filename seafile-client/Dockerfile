@@ -50,8 +50,7 @@ RUN apt-get update && apt-get install -y gnupg && \
         --no-install-recommends \
         --yes \
             seafile-cli \
-            oathtool \
-            cron && \
+            oathtool && \
     apt-get clean && apt-get autoclean && \
     rm -rf \
         /var/log/fsck/*.log \
@@ -60,9 +59,6 @@ RUN apt-get update && apt-get install -y gnupg && \
         /var/lib/apt/lists/* \
         /import-seafile-apt-key.sh && \
     mkdir /volume/ && \
-    echo "seafuser" > /etc/cron.allow && \
-    echo "*/20 * * * * /bin/bash /home/seafuser/healthcheck.sh" \
-        > /var/spool/cron/crontabs/seafuser && \
     groupadd -g $GID -o $UNAME && \
     useradd -m -u $UID -g $GID -o -s /bin/bash $UNAME
 
