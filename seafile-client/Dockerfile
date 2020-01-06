@@ -66,6 +66,7 @@ RUN apt-get update && apt-get install -y gnupg && \
 
 # Copy over the entrypoints, healthchecks and tests.
 COPY docker-entrypoint.sh /entrypoint.sh
+COPY docker-healthcheck.sh /healthcheck.sh
 COPY seafile-healthcheck.sh /home/seafuser/healthcheck.sh
 COPY seafile-entrypoint.sh /home/seafuser/entrypoint.sh
 COPY tests /tests
@@ -73,3 +74,4 @@ COPY tests /tests
 # Set bash as the entrypoint and run the entrypoint script from that.
 ENTRYPOINT ["/bin/bash"]
 CMD ["/entrypoint.sh"]
+HEALTHCHECK --interval=5m --start-period=20s --retries=1 CMD ["su", "-", "${UNAME}", "-c", "/healthcheck.sh"]
