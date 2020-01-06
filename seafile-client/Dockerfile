@@ -30,16 +30,9 @@ LABEL maintainer="flow.gunso@gmail.com" \
     org.label-schema.version=$VERSION \
     org.label-schema.schema-version="1.0"
 
-# Prevent the packages installation to halt.
-ENV DEBIAN_FRONTEND noninteractive
-# Create the Seafile client's user.
-ENV UNAME=seafuser
-ENV UID=1000
-ENV GID=1000
-# Seafile optional configuration.
-ENV SEAF_SKIP_SSL_CERT=1
-
-# Safely import Seafile APT key, then install both seafile-cli and supervisord.
+# Install seaf-cli and oathtool, prepare the user.
+ENV DEBIAN_FRONTEND=noninteractive
+ENV UNAME=seafuser UID=1000 GID=1000
 COPY import-seafile-apt-key.sh /
 RUN apt-get update && apt-get install -y gnupg && \
     mkdir -p /etc/apt/sources.list.d/ && \
@@ -64,11 +57,11 @@ RUN apt-get update && apt-get install -y gnupg && \
     mkdir /home/$UNAME/.seafile && \
     chown $UNAME:$GID /home/$UNAME/.seafile 
 
-# Copy over the entrypoints, healthchecks and tests.
+# Copy over the assets.
 COPY docker-entrypoint.sh /entrypoint.sh
 COPY docker-healthcheck.sh /healthcheck.sh
-COPY seafile-healthcheck.sh /home/seafuser/healthcheck.sh
 COPY seafile-entrypoint.sh /home/seafuser/entrypoint.sh
+COPY seafile-healthcheck.sh /home/seafuser/healthcheck.sh
 COPY tests /tests
 
 ENTRYPOINT ["/bin/bash", "--"]
