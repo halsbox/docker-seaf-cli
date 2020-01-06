@@ -45,15 +45,6 @@ if [[ -n "$SEAF_DOWNLOAD_LIMIT"
     echo "The \$SEAF_DOWNLOAD_LIMIT is not an integer greater than 0. Stopping container..."
     exit 1
 fi
-if [ -n "$SEAF_2FA_SECRET" ]; then
-    curl -X POST http://2fa:1880/auth \
-    -H "Content-Type: application/json" \
-    -d '{"secret":"YWAMNW7YTTB2QDU6ENTJ4LIPUYFUG4SW","key":"docker-seaf-cli","desc":"/"}'
-    if [ $? -ne 0 ]; then
-        echo "Could create an 2FA token provider at $SEAF_2FA_PROVIDER. curl error $?"
-        exit 1
-    fi
-fi
 
 # Update the user ID, if the $UID changed.
 if [ "$UID" != "1000" ]; then
