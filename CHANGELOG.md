@@ -1,40 +1,50 @@
-### [1.2.1] - 2019/05/02
+# __[2.0.0](https://gitlab.com/flwgns-docker/seafile-client/-/tags/2.0.0)__ | _2020/01/06_
+- Support 2FA authentication through `oathtool` using the secret key
+- Support for upload/download limits
+- Support for Seafile library password
+- Allow skipping SSL certificates verifications
+- Drop Bash/supervisord/cron implementations in favor of showing seafile's log
+- Implement basic integration tests that check expected binairies
+- Improve continuous integration though splitted jobs
+- Revise README
+- Change the volume path from /volume to /library for consistency
+
+### __[1.2.1](https://gitlab.com/flwgns-docker/seafile-client/-/tags/1.2.1)__ | _2019/12/29_
 - Fix #4:
   - Switch base image from Debian oldoldstable Jessie to Debian stable Buster to fix unmet dependencies of `seafile-cli` to `python-future` and `python-searpc`
   - Replace `;` with `&&` as commands separators in the Dockerfile's `RUN` to properly report failed commands at CI
-
-## [1.2.0] - 2019/05/02
+## __[1.2.0](https://gitlab.com/flwgns-docker/seafile-client/-/tags/1.2.0)__ | _2019/05/02_
 - Replace _supervisord_ with _cron_ for running the front job that keeps the container up. It uses less resources.
 - Improve the __infinite-seaf-cli-start.sh__ into __seafile-healthcheck.sh__. The Seafile daemon will not be restarted if it's state are either _downloading_ or _committing_, which otherwise is problematic.
 
-### [1.1.2] - 2019/04/18
+### __[1.1.2](https://gitlab.com/flwgns-docker/seafile-client/-/tags/1.1.2)__ | _2019/04/18_
 - Slim down the Docker image, from 102MB to 67MB, gaining 35MB, reducing size by 34%.
-### [1.1.1] - 2019/04/18
+### __[1.1.1](https://gitlab.com/flwgns-docker/seafile-client/-/tags/1.1.1)__ | _2019/04/18_
 - Because of the infinite-seaf-cli-start loop, within the container was running many seaf-daemons. Now, the infinite loop stop the current seaf-daemon before starting it again. (see #3)
-## [1.1.0] - 2019/04/09
+## __[1.1.0](https://gitlab.com/flwgns-docker/seafile-client/-/tags/1.1.0)__ | _2019/04/09_
 - The container now actually use the UID/GID provided to it:  
 The container entrypoint is run with root, then another entrypoint is run by the container's user, seafuser, to run the Seafile client.
 
-### [1.0.6] - 2019/03/25
+### __[1.0.6](https://gitlab.com/flwgns-docker/seafile-client/-/tags/1.0.6)__ | _2019/03/25_
 - More minor fixes from v1.0.4
-### [1.0.5] - 2019/03/25
+### __[1.0.5](https://gitlab.com/flwgns-docker/seafile-client/-/tags/1.0.5)__ | _2019/03/25_
 - Minor fixes from v1.0.4
-### [1.0.4] - 2019/03/25
+### __[1.0.4](https://gitlab.com/flwgns-docker/seafile-client/-/tags/1.0.4)__ | _2019/03/25_
 - Fix the build target detection (@a52559ddb38a64d7fceaa8bf9b8afd7356ccc439)
 - Login to the Docker Hub from within the script, not the gitlab-ci.yml, using (@72bab017c1167b8ab35cef3cc709ff83686eaca4, @f69483354a4cf8afdbea89ef2bb1d9a9b7b2ac10)
 - Require Bash on all Gitlab CI stages (@72bab017c1167b8ab35cef3cc709ff83686eaca4)
 - Add a script to push the README.md into the Docker Hub repository's full_description (@8cb49cbc8253368701d718c2e38017790c78ceca, @ca6128fb96602da71f3b7a560e834d1b7587abac)
-### [1.0.3] - 2019/03/19
+### __[1.0.3](https://gitlab.com/flwgns-docker/seafile-client/-/tags/1.0.3)__ | _2019/03/19_
 - Restrict staging pipelines to pushed pipelines
 - Restrict production pipelines to pushed and triggered pipelines
 - Require a build target on triggered production pipelines
-### [1.0.2] - 2019/03/18
+### __[1.0.2](https://gitlab.com/flwgns-docker/seafile-client/-/tags/1.0.2)__ | _2019/03/18_
 - Fix a minor issue when testing for requested production build.
-### [1.0.1] - 2019/03/18
+### __[1.0.1](https://gitlab.com/flwgns-docker/seafile-client/-/tags/1.0.1)__ | _2019/03/18_
 - Add failsafe when importing Seafile's APT-key
 - Restrict production build to latest, majors, minors and revisions version, on-demand.
-# [1.0.0] - 2019/03/15
+# __[1.0.0](https://gitlab.com/flwgns-docker/seafile-client/-/tags/1.0.0)__ | _2019/03/15_
 - Release to Docker Hub
 
-# [0.9.2] - 2019/03/15
+### __[0.9.2](https://gitlab.com/flwgns-docker/seafile-client/-/tags/0.9.2)__ | _2019/03/15_
 - Test release on GitLab, before Docker Hub
