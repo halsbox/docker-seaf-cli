@@ -19,7 +19,7 @@ build:
     - schedules
     - milestone--2.0
   artifacts:
-    path:
+    paths:
       - $CI_PROJECT_NAME.tar
 
 test:
@@ -30,7 +30,7 @@ test:
     - schedules
     - milestone--2.0
   artifacts:
-    path:
+    paths:
       - $CI_PROJECT_NAME.tar
 
 publish:
@@ -40,7 +40,7 @@ publish:
     - tags
     - schedules
   artifacts:
-    path:
+    paths:
       - $CI_PROJECT_NAME.tar
 
 update_docker_hub_full_description:
