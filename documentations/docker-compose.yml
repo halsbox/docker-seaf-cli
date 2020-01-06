@@ -4,7 +4,7 @@ services:
   seafile-client:
     image: flowgunso/seafile-client:latest
     volumes:
-      - your_shared_volume:/library
+      - shared_volume:/library
     environment:
       SEAF_SERVER_URL: ""         # The URL to your Seafile server.
       SEAF_USERNAME: ""           # Your Seafile username.
@@ -17,4 +17,4 @@ services:
 #      GID: ""                     # Default is 1000.
 
 volumes:
-  your_shared_volume:
+  shared_volume:
