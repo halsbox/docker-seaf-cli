@@ -9,11 +9,11 @@ stages:
   - publish
 
 before_script:
-  - apk add bash
+  - apk add bash git
 
 build:
   stage: build
-  script: /bin/bash .utilities/build.sh
+  script: /bin/bash -e .utilities/build.sh
   only:
     - tags
     - schedules
@@ -24,7 +24,7 @@ build:
 
 test:
   stage: test
-  script: /bin/bash .utilities/test.sh
+  script: /bin/bash -e .utilities/test.sh
   only:
     - tags
     - schedules
@@ -35,7 +35,7 @@ test:
 
 publish:
   stage: publish
-  script: /bin/bash .utilities/publish.sh
+  script: /bin/bash -e .utilities/publish.sh
   only:
     - tags
     - schedules
@@ -45,6 +45,6 @@ publish:
 
 update_docker_hub_full_description:
   stage: publish
-  script: /bin/bash .utilities/update-docker-hub-full-description.sh
+  script: /bin/bash -e .utilities/update-docker-hub-full-description.sh
   only:
     - master
