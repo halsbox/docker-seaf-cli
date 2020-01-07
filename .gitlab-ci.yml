@@ -10,13 +10,13 @@ stages:
 
 before_script:
   - apk add bash git
+  - /bin/bash .utilities/check.sh
 
 build.tags:
   stage: build
   script: /bin/bash -e .utilities/build.tags.sh
   only:
     - tags
-    - milestone--2.0
   artifacts:
     paths:
       - $CI_PROJECT_NAME.tar
@@ -36,7 +36,6 @@ test:
   only:
     - tags
     - schedules
-    - milestone--2.0
   artifacts:
     paths:
       - $CI_PROJECT_NAME.tar
@@ -46,7 +45,6 @@ publish.tags:
   script: /bin/bash -e .utilities/publish.tags.sh
   only:
     - tags
-    - milestone--2.0
   artifacts:
     paths:
       - $CI_PROJECT_NAME.tar
