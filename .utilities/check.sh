@@ -39,7 +39,7 @@ fi
 # on pushed CI pipelines.
 if [[ "$CI_PIPELINE_SOURCE" == "push" ]]; then
     if ! [[ "$CI_JOB_NAME" == "update_docker_hub_full_description" ]]; then 
-        if [[ -z "$CI_COMMIT_TAG" && "$CI_COMMIT_TAG" =~ ^[0-9]+[.][0-9]+[.][0-9]+$ ]]
+        if [[ -z "$CI_COMMIT_TAG" && "$CI_COMMIT_TAG" =~ ^[0-9]+[.][0-9]+[.][0-9]+$ ]]; then
             echo "The \$CI_COMMIT_TAG $CI_COMMIT_TAG does not match the MAJOR.Minor.revision layout."
             exit 1
         fi
