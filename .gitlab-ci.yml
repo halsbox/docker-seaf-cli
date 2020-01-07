@@ -46,6 +46,7 @@ publish.tags:
   script: /bin/bash -e .utilities/publish.tags.sh
   only:
     - tags
+    - milestone--2.0
   artifacts:
     paths:
       - $CI_PROJECT_NAME.tar
