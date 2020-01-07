@@ -29,6 +29,6 @@ done
 
 echo $CI_REGISTRY_BOT_PASSWORD | docker login --password-stdin --username $CI_REGISTRY_BOT_USERNAME
 for tag in "${tags[@]}"; do
-    docker tag $CI_REGISTRY_IMAGE:$tag $CI_PROJECT_NAME:build
+    docker tag $CI_PROJECT_NAME:build $CI_REGISTRY_IMAGE:$tag
     docker push $CI_REGISTRY_IMAGE:$tag
 done
