@@ -58,8 +58,8 @@ publish.schedules:
     paths:
       - $CI_PROJECT_NAME.tar
 
-update_docker_hub_full_description:
-  stage: publish
-  script: /bin/bash -e .utilities/update-docker-hub-full-description.sh
-  only:
-    - master
+#update_docker_hub_full_description:
+#  stage: publish
+#  script: /bin/bash -e .utilities/update-docker-hub-full-description.sh
+#  only:
+#    - master
