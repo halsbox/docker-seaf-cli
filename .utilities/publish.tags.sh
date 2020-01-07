@@ -21,7 +21,7 @@ source $SCRIPT_DIRECTORY/utilities.sh
 load_images_artifacts
 
 tags=("latest")
-for version_component in "$(echo $CI_COMMIT_TAG | tr '.' '\n')"; do
+for version_component in $(echo $CI_COMMIT_TAG | tr "." "\n"); do
     tag+="$version_component"
     tags+=("$tag")
     tag+="."
