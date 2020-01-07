@@ -23,6 +23,8 @@ for binary in "${binaries[@]}"; do
     if ! [ -x "$(command -v $binary)" ]; then
         echo "$binary was not found"
         failures+=($binary)
+    else
+        echo "$binary was found"
     fi
 done
 
