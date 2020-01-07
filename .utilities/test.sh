@@ -23,4 +23,4 @@ load_images_artifacts
 docker run \
     --interactive \
     --attach stderr \
-    $CI_PROJECT_NAME:build /test/test_binaries.sh
+    $CI_PROJECT_NAME:build /tests/test_binaries.sh
