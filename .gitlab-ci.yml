@@ -13,7 +13,7 @@ before_script:
 
 build.tags:
   stage: build
-  script: /bin/bash -e utilities/build.tags.sh
+  script: /bin/bash -e .utilities/build.tags.sh
   only:
     - tags
     - milestone--2.0
@@ -23,7 +23,7 @@ build.tags:
 
 build.schedules:
   stage: build
-  script: /bin/bash -e utilities/build.schedules.sh
+  script: /bin/bash -e .utilities/build.schedules.sh
   only:
     - schedules
   artifacts:
@@ -32,7 +32,7 @@ build.schedules:
 
 test:
   stage: test
-  script: /bin/bash -e utilities/test.sh
+  script: /bin/bash -e .utilities/test.sh
   only:
     - tags
     - schedules
@@ -43,7 +43,7 @@ test:
 
 publish.tags:
   stage: publish
-  script: /bin/bash -e utilities/publish.tags.sh
+  script: /bin/bash -e .utilities/publish.tags.sh
   only:
     - tags
   artifacts:
@@ -52,7 +52,7 @@ publish.tags:
 
 publish.schedules:
   stage: publish
-  script: /bin/bash -e utilities/publish.schedules.sh
+  script: /bin/bash -e .utilities/publish.schedules.sh
   only:
     - schedules
   artifacts:
@@ -61,6 +61,6 @@ publish.schedules:
 
 update_docker_hub_full_description:
   stage: publish
-  script: /bin/bash -e utilities/update-docker-hub-full-description.sh
+  script: /bin/bash -e .utilities/update-docker-hub-full-description.sh
   only:
     - master
