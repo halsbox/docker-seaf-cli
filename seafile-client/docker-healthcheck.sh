@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Docker Seafile client, help you mount a Seafile library as a volume.
-# Copyright (C) 2019, flow.gunso@gmail.com
+# Copyright (C) 2019-2020, flow.gunso@gmail.com
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,23 +16,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-# Define variable shortcuts for readability purposes.
-seafile_ini=~/.ccnet/seafile.ini
-seafile_sock=~/.seafile/seafile-data/seafile.sock
+# Grab the status of the active repos then return as healthy/unhealthy
+# depending the healthy statuses.
 
-# Prepare the directories.
-mkdir ~/.seafile
-
-# Safely initialise the Seafile client.
-/usr/bin/seaf-cli init -d ~/.seafile
-while [ ! -f $seafile_ini ]; do sleep 1; done
-
-# Safely start the Seafile daemon.
-/usr/bin/seaf-cli start
-while [ ! -S $seafile_sock ]; do sleep 1; done
-
-# Start the synchronisation.
-/usr/bin/seaf-cli sync -u $SEAF_USERNAME -p $SEAF_PASSWORD -s $SEAF_SERVER_URL -l $SEAF_LIBRARY_UUID -d /volume
-
-# Run the infinite Seafile restart.
-source ~/seafile-healthcheck.sh
+healthy_statuses=("downloading" "waiting for sync", "uploading", "downloading files", "downloading file list")
+while IFS=$'\t' read -r name status; do
+    for healthy_status in "${healthy_statuses[@]}"; do
+        if [[ "$status" == "$healthy" ]]; then exit 0; fi
+    done
+    exit 1
+done < <(seaf-cli status | grep -v "^#")

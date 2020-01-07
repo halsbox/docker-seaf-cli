@@ -1,98 +1,97 @@
-[![1.2.1 build status](https://gitlab.com/flwgns-docker/seafile-client/badges/1.2.1/pipeline.svg)](https://gitlab.com/flwgns-docker/seafile-client/commits/1.2.1)
+[![2.0.0 build status](https://gitlab.com/flwgns-docker/seafile-client/badges/2.0.0/pipeline.svg)](https://gitlab.com/flwgns-docker/seafile-client/commits/2.0.0)
 [![Docker pulls](https://img.shields.io/docker/pulls/flowgunso/seafile-client.svg)](https://hub.docker.com/r/flowgunso/seafile-client)
 [![Licensed under GPLv3](https://img.shields.io/badge/License-GPLv3-red.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![@gitlab.com/flwgns-docker/seafile-client](https://img.shields.io/badge/Source%20code-GitLab-red.svg)](https://gitlab.com/flwgns-docker/seafile-client/)
 
-# Available tags
+**Share a Seafile library as a volume to other containers.**
 
-Weekly stable release are built every Monday at 6AM UTC+2.  
-Permanent stable releases will not be built again.
+# Supported tags
+[`2`, `2.0`, `2.0.0`, `latest`](seafile-client/Dockerfile)
 
-## Weekly stable releases.
-[`1`](https://gitlab.com/flwgns-docker/seafile-client/tags/1.2.1),
-[`1.2`](https://gitlab.com/flwgns-docker/seafile-client/tags/1.2.1),
-[`1.2.1`](https://gitlab.com/flwgns-docker/seafile-client/tags/1.2.1),
-[`latest`](https://gitlab.com/flwgns-docker/seafile-client/tags/1.2.1)
-
-## Developmental releases.
-[`staging`](https://gitlab.com/flwgns-docker/seafile-client/tree/staging):
-The purpose of this release is to test feature and make them available to anyone.
-
-# Purpose
-Docker Seafile Client allow you to sync a Seafile library within a container.
-
-**Essentially, you can share a Seafile library as a volume to other containers**.
-
-## Seafile?
-[Seafile is a cloud storage software](https://www.seafile.com/).
+# Informations
+* Synchronize a single Seafile library, available at the path `/library/'.
+* Password protected librairies are supported.
+* Two factor authentication is supported.
+* Upload and download speeds are configurable.
+* SSL certificates are skippable.
+<!-- -->
+* Supported tags are rebuilt weekly.
+<!-- -->
+* Ask questions on [Seafile forum](https://forum.seafile.com/t/docker-client-to-sync-files-with-containers/8573).
+* Contribute and report issues on [Gitlab](https://gitlab.com/flwgns-docker/seafile-client/).
 
 
 # Usage
-The *Seafile* daemon is running as the user `seafuser` from it's directories `~/.seafile/` and `~/.ccnet`.
+## Required configuration
+__SEAF_SERVER_URL__, __SEAF_USERNAME__, __SEAF_PASSWORD__, __SEAF_LIBRARY_UUID__  
+Provide your Seafile _server URL_, _username_, _password_ and _library UUID_ to synchronise your library at `/library`, then share it as a volume.
 
-The library is synced at `/volume/`.
+The `seaf-cli` is ran within the container as the user `seafuser`. 
 
-The *Seafile* daemon is managed with *supervisord* since it can't run as a foreground process.
-The *supervisord* is running from `~/.supervisord/`, the `supervisord.conf`, `supervisord.log` and `supervisord.pid` can be found there.  
-*supervisord* also manage a shell script, `~/infinite-seaf-cli-start.sh` which stop then start the Seafile daemon every 20 minutes: the synchronisation might not work properly if the Seafile daemon is not restarted from times to times, for an unresolved reason.
-## Examples
-You would have to share the path `/volume/` to other containers, with the following approaches:
-### Docker CLI
+## Optional configurations
+__SEAF_2FA_SECRET__  
+_Two factor authentication is supported but your secret key must be provided._ That key can be found on your Seafile web interface, only at the 2FA setup, when the QR code is shown. The secret key is embedded in the QR or available as a cookie.
+
+__SEAF_LIBRARY_PASSWORD__  
+Password protected librairies can be sync provided with the _password_.
+
+__SEAF_UPLOAD_LIMIT__, __SEAF_DOWNLOAD_LIMIT__  
+Upload and download speeds are configurable as _absolute bytes_.
+
+__SEAF_SKIP_SSL_CERT__  
+Skip SSL certificates verifications. _Any string is considered true, omit the variable to set to false_. Enable this if you have synchronization failures regarding SSL certificates.
+
+__UID__, __GID__  
+Override the _UID_ and _GID_ for volume read/write permissions.
+
+# Examples
+## As a Docker command 
 ```
 docker run \ 
-    -e SEAF_SERVER_URL= \   # The URL to your Seafile server.
-    -e SEAF_USERNAME= \     # Your Seafile username.
-    -e SEAF_PASSWORD= \     # Your Seafile password
-    -e SEAF_LIBRARY_UUID= \ # The Seafile library UUID you want to sync with.
-    -e UID= \               # Default is 1000.
-    -e GID= \               # Default is 1000.
-    -v your/shared/volume:/volume \
+    -e SEAF_SERVER_URL=https://seafile.example/
+    -e SEAF_USERNAME=a_seafile_user
+    -e SEAF_PASSWORD=SoMePaSSWoRD
+    -e SEAF_LIBRARY_UUID=an-hexadecimal-library-uuid
+    -v path/to/shared/volume:/library \
     flowgunso/seafile-client:latest
 ```
-### docker-compose
+## As a Docker Compose
 ```yaml
-version: "3.4"
-
 services:
+
   seafile-client:
     image: flowgunso/seafile-client:latest
-    restart: on-failure
     volumes:
-      - your_shared_volume:/volume
+      - shared_volume:/library
     environment:
-      - SEAF_SERVER_URL=    # The URL to your Seafile server.
-      - SEAF_USERNAME=      # Your Seafile username.
-      - SEAF_PASSWORD=      # Your Seafile password.
-      - SEAF_LIBRARY_UUID=  # The Seafile library UUID you want to sync with.
-      - UID=                # Default is 1000.
-      - GID=                # Default is 1000.
+      SEAF_SERVER_URL: "https://seafile.example/"
+      SEAF_USERNAME: "a_seafile_user"
+      SEAF_PASSWORD: "SoMePaSSWoRD"
+      SEAF_LIBRARY_UUID: "an-hexadecimal-library-uuid"
 
 volumes:
-  your_shared_volume:
+  shared_volume:
 ```
+## With all optional configurations
+```yaml
+services:
 
+  seafile-client:
+    image: flowgunso/seafile-client:latest
+    volumes:
+      - shared_volume:/library
+    environment:
+      SEAF_SERVER_URL: "https://seafile.example/"
+      SEAF_USERNAME: "a_seafile_user"
+      SEAF_PASSWORD: "SoMePaSSWoRD"
+      SEAF_LIBRARY_UUID: "an-hexadecimal-library-uuid"
+      SEAF_2FA_SECRET: "JBSWY3DPEHPK3PXPIXDAUMXEDOXIUCDXWC32CS"
+      SEAF_LIBRARY_PASSWORD: "LiBRaRyPaSSWoRD"
+      SEAF_UPLOAD_LIMIT: "1000000"
+      SEAF_DOWNLOAD_LIMIT: "1000000"
+      SEAF_SKIP_SSL_CERT: "true"
 
-# Environment variables
-The following environment variable are available.
-
-## Seafile
-This Docker **must be configured with the following**, **otherwise** it **will not run**:
-### SEAF_SERVER_URL
-The URL to your Seafile server.
-### SEAF_USERNAME
-Your Seafile account's username.
-### SEAF_PASSWORD
-Your Seafile account's password.
-### SEAF_LIBRARY_UUID
-The Seafile library UUID you want to use.
-
-## User permissions
-This Docker is **not running as `root` but as `seafuser`**. You can override the user/group ID used with:
-### UID
-The user ID defaults to `1000`. You may want to override this variable to prevent permission issues.
-### GID
-The group ID defaults to `1000`. Similarly, you may want to override this variable to prevent permission issues.
-
-# Source code
-This Docker image is licensed under GPLv3.  
-The source code is available in [gitlab.com/flwgns-docker/seafile-client](https://gitlab.com/flwgns-docker/seafile-client/).
+volumes:
+  shared_volume:
+```
+Or use the [docker-compose.yml](documentations/docker-compose.yml) template.

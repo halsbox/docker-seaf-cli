@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Docker Seafile client, help you mount a Seafile library as a volume.
-# Copyright (C) 2019, flow.gunso@gmail.com
+# Copyright (C) 2019-2020, flow.gunso@gmail.com
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,15 +16,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-# Restrict to pipeline triggered by pushes.
-if [ $CI_PIPELINE_SOURCE != "push" ]; then
-    echo "This must be only ran from pushes."
-    exit 1
-fi
-
-# Login with Docker Registry.
-echo $CI_REGISTRY_BOT_PASSWORD | docker login -u $CI_REGISTRY_BOT_USERNAME docker.io --password-stdin
-
-# Build and push as staging.
-docker build -t index.docker.io/$CI_REGISTRY_IMAGE:staging .
-docker push index.docker.io/$CI_REGISTRY_IMAGE:staging
+not_imported=true
+while $not_imported; do
+	apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 8756C4F765C9AC3CB6B85D62379CE192D401AB61
+	if [ $? -eq 0 ]; then
+		not_imported=false
+	else
+		sleep 5
+	fi
+done

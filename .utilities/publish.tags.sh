@@ -1,7 +1,7 @@
-#!/bin/bash
+# !/bin/bash
 
 # Docker Seafile client, help you mount a Seafile library as a volume.
-# Copyright (C) 2019, flow.gunso@gmail.com
+# Copyright (C) 2019-2020, flow.gunso@gmail.com
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,20 +16,19 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-# Define variable shortcuts for readability purposes.
-seafile_ini=~/.ccnet/seafile.ini
-seafile_sock=~/.seafile/seafile-data/seafile.sock
+SCRIPT_DIRECTORY=$(dirname ${BASH_SOURCE[0]})
+source $SCRIPT_DIRECTORY/utilities.sh
+load_images_artifacts
 
-# Prepare the directories.
-mkdir ~/.seafile
+tags=("latest")
+for version_component in "$CI_COMMIT_TAG"; do
+    tag+="$version_component"
+    tags+=("$tag")
+    tag+="."
+done
 
-# Safely initialise the Seafile client.
-/usr/bin/seaf-cli init -d ~/.seafile
-while [ ! -f $seafile_ini ]; do sleep 1; done
-
-# Safely start the Seafile daemon.
-/usr/bin/seaf-cli start
-while [ ! -S $seafile_sock ]; do sleep 1; done
-
-# Start the synchronisation.
-/usr/bin/seaf-cli sync -u $SEAF_USERNAME -p $SEAF_PASSWORD -s $SEAF_SERVER_URL -l $SEAF_LIBRARY_UUID -d /volume
+echo $CI_REGISTRY_BOT_PASSWORD | docker login --password-stdin --username $CI_REGISTRY_BOT_USERNAME
+for tag in "${tags[@]}"; do
+    docker tag $CI_PROJECT_NAME:$tag $CI_REGISTRY_IMAGE:build
+    docker push $CI_REGISTRY_IMAGE:$tag
+done

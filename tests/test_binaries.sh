@@ -1,5 +1,7 @@
+#!/bin/bash
+
 # Docker Seafile client, help you mount a Seafile library as a volume.
-# Copyright (C) 2019, flow.gunso@gmail.com
+# Copyright (C) 2019-2020, flow.gunso@gmail.com
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -14,17 +16,18 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-# Run in the foreground to keep the container running.
-[supervisord]
-nodaemon=true
+failures=()
+binaries=(seaf-cli oathtool)
 
-# Manage the Seafile daemon.
-[unix_http_socket]
-file=~/.seafile/seafile-data/seafile.sock
+for binary in "${binaries[@]}"; do
+    if ! [ -x "$(command -v $binary)" ]; then
+        echo "$binary was not found"
+        failures+=($binary)
+    else
+        echo "$binary was found"
+    fi
+done
 
-# Manage the infinite `seaf-cli start`.
-[program:seaf-cli-start-loop]
-command=/bin/bash /home/seafuser/seafile-healthcheck.sh
-process_name=%(program_name)s
-numprocs=1
-autostart=true
+if [ ${#failures[@]} -ne 0 ]; then
+    exit 1
+fi

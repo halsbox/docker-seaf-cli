@@ -1,40 +1,65 @@
 image: docker:latest
 
 services:
-- docker:dind
+  - docker:dind
 
 stages:
-- build_publish
+  - build
+  - test
+  - publish
 
 before_script:
-- apk add bash
+  - apk add bash git
+  - /bin/bash .utilities/check.sh
 
-cron_or_supervisord:
-  stage: build_publish
-  script:
-  - /bin/bash utils/publish/feature--cron-or-supervisord.sh
+build.tags:
+  stage: build
+  script: /bin/bash -e .utilities/build.tags.sh
   only:
-  - feature--cron-or-supervisord
+    - tags
+  artifacts:
+    paths:
+      - $CI_PROJECT_NAME.tar
 
-staging:
-  stage: build_publish
-  script:
-  - /bin/bash utils/publish/staging.sh
+build.schedules:
+  stage: build
+  script: /bin/bash -e .utilities/build.schedules.sh
   only:
-  - staging
+    - schedules
+  artifacts:
+    paths:
+      - $CI_PROJECT_NAME.tar
 
-production:
-  stage: build_publish
-  script:
-  - /bin/bash utils/publish/production.sh
+test:
+  stage: test
+  script: /bin/bash -e .utilities/test.sh
   only:
-  - tags
-  except:
-  - branches
+    - tags
+    - schedules
+  artifacts:
+    paths:
+      - $CI_PROJECT_NAME.tar
+
+publish.tags:
+  stage: publish
+  script: /bin/bash -e .utilities/publish.tags.sh
+  only:
+    - tags
+  artifacts:
+    paths:
+      - $CI_PROJECT_NAME.tar
+
+publish.schedules:
+  stage: publish
+  script: /bin/bash -e .utilities/publish.schedules.sh
+  only:
+    - schedules
+  artifacts:
+    paths:
+      - $CI_PROJECT_NAME.tar
 
 update_docker_hub_full_description:
-  stage: build_publish
-  script:
-    - /bin/bash utils/publish/update-docker-hub-full-description.sh
+  stage: publish
+  script: /bin/bash -e .utilities/update-docker-hub-full-description.sh
   only:
     - master
