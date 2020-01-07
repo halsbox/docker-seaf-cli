@@ -1,4 +1,4 @@
-# !/bin/bash
+#!/bin/bash
 
 # Docker Seafile client, help you mount a Seafile library as a volume.
 # Copyright (C) 2019-2020, flow.gunso@gmail.com
@@ -16,19 +16,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-SCRIPT_DIRECTORY=$(dirname ${BASH_SOURCE[0]})
-source $SCRIPT_DIRECTORY/utilities.sh
-load_images_artifacts
+cp -R tests seafile-client/
+cd seafile-client/
 
-tags=("latest")
-for version_component in $(git describe --abbrev=0 | tr "." "\n"); do
-    tag+="$version_component"
-    tags+=("$tag")
-    tag+="."
-done
+docker build \
+    --build-arg BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ") \
+    --build-arg VCS_REF=$(git rev-parse --short HEAD) \
+    --build-arg VERSION=$latest_version \
+    --tag $CI_PROJECT_NAME:build .
 
-echo $CI_REGISTRY_BOT_PASSWORD | docker login --password-stdin --username $CI_REGISTRY_BOT_USERNAME
-for tag in "${tags[@]}"; do
-    echo "docker tag $CI_PROJECT_NAME:$tag $CI_REGISTRY_IMAGE:build"
-    echo "docker push $CI_REGISTRY_IMAGE:$tag"
-done
+docker save --output ../$CI_PROJECT_NAME.tar $CI_PROJECT_NAME:build

@@ -11,20 +11,28 @@ stages:
 before_script:
   - apk add bash git
 
-build:
+build.tags:
   stage: build
-  script: /bin/bash -e .utilities/build.sh
+  script: /bin/bash -e utilities/build.tags.sh
   only:
     - tags
-    - schedules
     - milestone--2.0
+  artifacts:
+    paths:
+      - $CI_PROJECT_NAME.tar
+
+build.schedules:
+  stage: build
+  script: /bin/bash -e utilities/build.schedules.sh
+  only:
+    - schedules
   artifacts:
     paths:
       - $CI_PROJECT_NAME.tar
 
 test:
   stage: test
-  script: /bin/bash -e .utilities/test.sh
+  script: /bin/bash -e utilities/test.sh
   only:
     - tags
     - schedules
@@ -33,11 +41,19 @@ test:
     paths:
       - $CI_PROJECT_NAME.tar
 
-publish:
+publish.tags:
   stage: publish
-  script: /bin/bash -e .utilities/publish.sh
+  script: /bin/bash -e utilities/publish.tags.sh
   only:
     - tags
+  artifacts:
+    paths:
+      - $CI_PROJECT_NAME.tar
+
+publish.schedules:
+  stage: publish
+  script: /bin/bash -e utilities/publish.schedules.sh
+  only:
     - schedules
   artifacts:
     paths:
@@ -45,6 +61,6 @@ publish:
 
 update_docker_hub_full_description:
   stage: publish
-  script: /bin/bash -e .utilities/update-docker-hub-full-description.sh
+  script: /bin/bash -e utilities/update-docker-hub-full-description.sh
   only:
     - master
