@@ -22,30 +22,26 @@
 # This action can only be done with the actual owner of the repository,
 # unless you can extend the collaborator's permissions but as far as I know, you can't.
 
-
 # Install required system packages.
 apk add curl jq
 
 # Get a token from hub.docker.com with the owner credentials.
-token=$(curl -s https://hub.docker.com/v2/users/login/ \
+token=$(jq -n \
+    --arg username "$CI_REGISTRY_OWNER_USERNAME" \
+    --arg password "$CI_REGISTRY_OWNER_PASSWORD" \
+    '{"username": $username, "password": $password}' \
+    | curl -s https://hub.docker.com/v2/users/login/ \
         -X POST \
         -H "Content-Type: application/json" \
-        -d '{"username": "'"$CI_REGISTRY_OWNER_USERNAME"'", "password": "'"$CI_REGISTRY_OWNER_PASSWORD"'"}' \
+        -d @- \
         | jq -r .token)
-echo $token
-echo
 
-# Generate a JSON with the README.md as the full_description.
+# Patch the README.md as a JSON payload.
 jq -n \
     --arg readme "$(<README.md)" \
     '{"full_description": $readme}' \
-    > full_description.json
-
-set -x
-# Update the Docker Hub repository's full_description.
-curl -s -L https://cloud.docker.com/v2/repositories/$CI_REGISTRY_IMAGE/ \
-    -X PATCH \
-    -d @full_description.json \
-    -H "Content-Type: application/json" \
-    -H "Authorization: JWT $token"
-set +x
+    | curl -s -L https://hub.docker.com/v2/repositories/$CI_REGISTRY_IMAGE/ \
+        -X PATCH \
+        -d @- \
+        -H "Content-Type: application/json" \
+        -H "Authorization: JWT $token"
