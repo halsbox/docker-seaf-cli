@@ -17,22 +17,9 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 # Check the CI pipeline sources.
-if ! [[ "$CI_PIPELINE_SOURCE" == "push" || "$CI_PIPELINE_SOURCE" == "schedule" ]]; then
-    echo "CI pipelines are only allowed from the push and schedule sources"
+if ! [[ "$CI_PIPELINE_SOURCE" == "push" ]]; then
+    echo "CI pipelines are only allowed from push."
     exit 1
-fi
-
-# Check the schedule target for the scheduled CI pipelines.
-if [[ "$CI_PIPELINE_SOURCE" == "schedule" ]]; then
-    if [[ -z "$SCHEDULE_TARGET" ]]; then
-        echo "\$SCHELUDE_TARGET was not provided."
-        exit 1
-    fi
-
-    if ! [[ "$SCHEDULE_TARGET" == "weekly" ]]; then
-        echo "\$SCHEDULE_TARGET $SCHEDULE_TARGET is not known."
-        exit 1
-    fi
 fi
 
 # Check the tag is properly defined on job other than update_docker_hub_full_description job,

@@ -14,18 +14,9 @@ before_script:
 
 build.tags:
   stage: build
-  script: /bin/bash -e .utilities/build.tags.sh
+  script: /bin/bash -e .utilities/build.sh
   only:
     - tags
-  artifacts:
-    paths:
-      - $CI_PROJECT_NAME.tar
-
-build.schedules:
-  stage: build
-  script: /bin/bash -e .utilities/build.schedules.sh
-  only:
-    - schedules
   artifacts:
     paths:
       - $CI_PROJECT_NAME.tar
@@ -42,18 +33,9 @@ test:
 
 publish.tags:
   stage: publish
-  script: /bin/bash -e .utilities/publish.tags.sh
+  script: /bin/bash -e .utilities/publish.sh
   only:
     - tags
-  artifacts:
-    paths:
-      - $CI_PROJECT_NAME.tar
-
-publish.schedules:
-  stage: publish
-  script: /bin/bash -e .utilities/publish.schedules.sh
-  only:
-    - schedules
   artifacts:
     paths:
       - $CI_PROJECT_NAME.tar

@@ -15,8 +15,6 @@
 * Upload and download speeds are configurable.
 * SSL certificates are skippable.
 <!-- -->
-* Supported tags are rebuilt weekly.
-<!-- -->
 * Ask questions on [Seafile forum](https://forum.seafile.com/t/docker-client-to-sync-files-with-containers/8573).
 * Contribute and report issues on [Gitlab](https://gitlab.com/flwgns-docker/seafile-client/).
 
