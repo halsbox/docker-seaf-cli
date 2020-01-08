@@ -20,6 +20,7 @@ SCRIPT_DIRECTORY=$(dirname ${BASH_SOURCE[0]})
 source $SCRIPT_DIRECTORY/utilities.sh
 load_images_artifacts
 
+# Generate version tags.
 tags=("latest")
 for version_component in $(echo $CI_COMMIT_TAG | tr "." "\n"); do
     tag+="$version_component"
@@ -27,6 +28,7 @@ for version_component in $(echo $CI_COMMIT_TAG | tr "." "\n"); do
     tag+="."
 done
 
+# Tag then push the Docker Hub registry.
 echo $CI_REGISTRY_BOT_PASSWORD | docker login --password-stdin --username $CI_REGISTRY_BOT_USERNAME
 for tag in "${tags[@]}"; do
     docker tag $CI_PROJECT_NAME:build $CI_REGISTRY_IMAGE:$tag
