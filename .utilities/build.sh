@@ -22,8 +22,8 @@ cd seafile-client/
 docker build \
     --build-arg BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ") \
     --build-arg VCS_REF=$(git rev-parse --short HEAD) \
-    --build-arg CI_COMMIT_TAG \
-    --build-arg CI_PROJECT_URL \
+    --build-arg VERSION=$CI_COMMIT_TAG \
+    --build-arg PROJECT_URL=$CI_PROJECT_URL \
     --tag $CI_PROJECT_NAME:build .
 
 docker save --output ../$CI_PROJECT_NAME.tar $CI_PROJECT_NAME:build
