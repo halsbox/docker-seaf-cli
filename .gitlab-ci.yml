@@ -40,12 +40,6 @@ publish.tags:
     paths:
       - $CI_PROJECT_NAME.tar
 
-debugging:
-  stage: test
-  script: echo $CI_PROJECT_URL
-  only:
-    - enhancement--microbadger-badges
-
 #update_docker_hub_full_description:
 #  stage: publish
 #  script: /bin/bash -e .utilities/update-docker-hub-full-description.sh
