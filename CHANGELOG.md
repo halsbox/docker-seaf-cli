@@ -1,3 +1,6 @@
+### __[2.0.1](https://gitlab.com/flwgns-docker/seafile-client/-/tags/2.0.1)__ | _2020/01/14_
+- Fix #11: update chown path to library, comment chown to an obsolete healthcheck.sh.
+- Ongoing #5: pass $CI_PROJECT_URL to the Dockerfile as a build argument. 
 # __[2.0.0](https://gitlab.com/flwgns-docker/seafile-client/-/tags/2.0.0)__ | _2020/01/06_
 - Support 2FA authentication through `oathtool` using the secret key
 - Support for upload/download limits
