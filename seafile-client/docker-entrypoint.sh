@@ -47,9 +47,9 @@ if [ "$GID" != "1000" ]; then
 fi
 
 # Set the files ownership.
-chown $UID.$GID /home/seafuser/healthcheck.sh
+#chown $UID.$GID /home/seafuser/healthcheck.sh
 chown $UID.$GID /home/seafuser/entrypoint.sh
-chown $UID.$GID -R /volume 
+chown $UID.$GID -R /library
 
 # Run the Seafile client as the container user.
 su - $UNAME << EO
