@@ -34,3 +34,6 @@ for tag in "${tags[@]}"; do
     docker tag $CI_PROJECT_NAME:build $CI_REGISTRY_IMAGE:$tag
     docker push $CI_REGISTRY_IMAGE:$tag
 done
+
+# Trigger a MicroBadger update.
+curl -X POST $CI_MICROBADGER_WEBHOOK
