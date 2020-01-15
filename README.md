@@ -89,6 +89,8 @@ services:
       SEAF_UPLOAD_LIMIT: "1000000"
       SEAF_DOWNLOAD_LIMIT: "1000000"
       SEAF_SKIP_SSL_CERT: "true"
+      UID: "1000"
+      GID: "1000"
 
 volumes:
   shared_volume:
