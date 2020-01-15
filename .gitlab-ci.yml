@@ -12,7 +12,7 @@ before_script:
   - apk add bash git
   - /bin/bash .utilities/check.sh
 
-build.tags:
+build:
   stage: build
   script: /bin/bash -e .utilities/build.sh
   only:
@@ -31,7 +31,7 @@ test:
     paths:
       - $CI_PROJECT_NAME.tar
 
-publish.tags:
+publish:
   stage: publish
   script: /bin/bash -e .utilities/publish.sh
   only:
