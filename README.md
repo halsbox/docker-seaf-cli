@@ -47,10 +47,10 @@ Override the _UID_ and _GID_ for volume read/write permissions.
 ## As a Docker command 
 ```
 docker run \ 
-    -e SEAF_SERVER_URL=https://seafile.example/
-    -e SEAF_USERNAME=a_seafile_user
-    -e SEAF_PASSWORD=SoMePaSSWoRD
-    -e SEAF_LIBRARY_UUID=an-hexadecimal-library-uuid
+    -e SEAF_SERVER_URL=https://seafile.example/ \
+    -e SEAF_USERNAME=a_seafile_user \
+    -e SEAF_PASSWORD=SoMePaSSWoRD \
+    -e SEAF_LIBRARY_UUID=an-hexadecimal-library-uuid \
     -v path/to/shared/volume:/library \
     flowgunso/seafile-client:latest
 ```
