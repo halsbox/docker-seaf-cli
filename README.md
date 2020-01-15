@@ -1,4 +1,5 @@
 [![latest build status](https://gitlab.com/flwgns-docker/seafile-client/badges/2.0.3/pipeline.svg)](https://gitlab.com/flwgns-docker/seafile-client/commits/2.0.3)
+[![](https://images.microbadger.com/badges/image/flowgunso/seafile-client.svg)](https://microbadger.com/images/flowgunso/seafile-client "Get your own image badge on microbadger.com")
 [![Docker pulls](https://img.shields.io/docker/pulls/flowgunso/seafile-client.svg)](https://hub.docker.com/r/flowgunso/seafile-client)
 [![Licensed under GPLv3](https://img.shields.io/badge/License-GPLv3-red.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![@gitlab.com/flwgns-docker/seafile-client](https://img.shields.io/badge/Source%20code-GitLab-red.svg)](https://gitlab.com/flwgns-docker/seafile-client/)
