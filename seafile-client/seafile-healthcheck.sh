@@ -22,21 +22,6 @@
 # This script grabs the output while ignoring the comments to iterate over the informations set to their columns,
 # then it compares the statuses, when not empty, to the ones that do not require a restart. Finally either restart or don't.
 
-seaf=/usr/bin/seaf-cli
-dont_restart_on=("downloading" "committing")
-restart=true
+echo $SEAF_LIBRARY_ID
 
-while IFS=$'\t' read -r name status progress; do
-    if [ $status ]; then
-        for dont_restart_on_status in "${dont_restart_on[@]}"; do
-            if [ "$status" == "$dont_restart_on_status" ]; then
-                restart=false; break; break
-            fi
-        done
-    fi
-done < <($seaf status | grep -v "^#")
-
-if $restart; then
-    $seaf stop
-    $seaf start
-fi
+healthcheck.py -c ~/.seafile/seafile-data/ $SEAF_LIBRARY_ID
