@@ -19,10 +19,6 @@
 # Grab the status of the active repos then return as healthy/unhealthy
 # depending the healthy statuses.
 
-healthy_statuses=("downloading" "waiting for sync", "uploading", "downloading files", "downloading file list")
-while IFS=$'\t' read -r name status; do
-    for healthy_status in "${healthy_statuses[@]}"; do
-        if [[ "$status" == "$healthy" ]]; then exit 0; fi
-    done
-    exit 1
-done < <(seaf-cli status | grep -v "^#")
+su - $UNAME << EO
+    ~/healthcheck.py -c ~/.seafile/seafile-data/ $SEAF_LIBRARY_UUID
+EO
