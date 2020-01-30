@@ -41,5 +41,8 @@ cmd="seaf-cli sync -u $SEAF_USERNAME -p $SEAF_PASSWORD -s $SEAF_SERVER_URL -l $S
 # Run it.
 if ! eval $cmd; then echo "Failed to synchronize."; exit 1; fi
 
-# Continously print the log.
-tail -f ~/.ccnet/logs/seafile.log
+# Continously print the log, infinitely.
+while true; do
+    tail -v -f ~/.ccnet/logs/seafile.log
+    echo $?
+done
