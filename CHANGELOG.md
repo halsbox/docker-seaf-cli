@@ -1,3 +1,6 @@
+## __[2.1.0](https://gitlab.com/flwgns-docker/seafile-client/-/tags/2.1.0)__ | _not released yet_
+- Close #13: replace previous Bash script that parse `seaf-cli status` with a Python script that use __pysearpc__ to run checks
+
 ### __[2.0.3](https://gitlab.com/flwgns-docker/seafile-client/-/tags/2.0.2)__ | _2020/01/14_
 - Ongoing #5:  read [the docs](https://docs.docker.com/engine/reference/commandline/build/#set-build-time-variables---build-arg) a bit more.
 ### __[2.0.2](https://gitlab.com/flwgns-docker/seafile-client/-/tags/2.0.2)__ | _2020/01/14_
