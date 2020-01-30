@@ -31,6 +31,11 @@ LABEL maintainer="flow.gunso@gmail.com" \
     org.label-schema.version=$VERSION \
     org.label-schema.schema-version="1.0"
 
+# Copy over the assets.
+COPY docker-entrypoint.sh /entrypoint.sh
+COPY docker-healthcheck.sh /healthcheck.sh
+COPY tests /tests
+
 # Install seaf-cli and oathtool, prepare the user.
 ENV DEBIAN_FRONTEND=noninteractive
 ENV UNAME=seafuser UID=1000 GID=1000
@@ -56,15 +61,13 @@ RUN apt-get update && apt-get install -y gnupg && \
     groupadd -g $GID -o $UNAME && \
     useradd -m -u $UID -g $GID -o -s /bin/bash $UNAME && \
     mkdir /home/$UNAME/.seafile && \
-    chown $UNAME:$GID /home/$UNAME/.seafile 
+    chown $UNAME:$GID /home/$UNAME/.seafile
 
-# Copy over the assets.
-COPY docker-entrypoint.sh /entrypoint.sh
-COPY docker-healthcheck.sh /healthcheck.sh
 COPY seafile-entrypoint.sh /home/seafuser/entrypoint.sh
-#COPY seafile-healthcheck.sh /home/seafuser/healthcheck.sh
-COPY tests /tests
+COPY seafile-healthcheck.py /home/seafuser/healthcheck.py
+RUN chmod +x /home/$UNAME/healthcheck.py && \
+    chown $UNAME:$GID /home/$UNAME/
 
 ENTRYPOINT ["/bin/bash", "--"]
 CMD ["/entrypoint.sh"]
-HEALTHCHECK --start-period=20s --retries=1 CMD ["su", "-", "${UNAME}", "-c", "/healthcheck.sh"]
+HEALTHCHECK --start-period=1m CMD /healthcheck.sh
