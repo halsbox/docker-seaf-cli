@@ -1,3 +1,5 @@
 .idea/
 *.pyc
 docker-compose.test.yml
+venv/
+*.description
