@@ -7,7 +7,7 @@
 - Ongoing #14: implement a workaround to probable issue, waiting for the issue to appear
 
 ### __[2.0.3](https://gitlab.com/flwgns-docker/seafile-client/-/tags/2.0.2)__ | _2020/01/14_
-- Ongoing #5:  read [the docs](https://docs.docker.com/engine/reference/commandline/build/#set-build-time-variables---build-arg) a bit more.
+- Close #5:  read [the docs](https://docs.docker.com/engine/reference/commandline/build/#set-build-time-variables---build-arg) a bit more.
 ### __[2.0.2](https://gitlab.com/flwgns-docker/seafile-client/-/tags/2.0.2)__ | _2020/01/14_
 - Ongoing #5: propagate the CI_COMMIT_TAG and CI_PROJECT_URL environment variables into the Dockerfile as [the docs states](https://docs.docker.com/engine/reference/commandline/build/#set-build-time-variables---build-arg).
 ### __[2.0.1](https://gitlab.com/flwgns-docker/seafile-client/-/tags/2.0.1)__ | _2020/01/14_
