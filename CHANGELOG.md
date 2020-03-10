@@ -1,5 +1,7 @@
+- Close #16: add a templater for Docker Hub and Seafile's forum topic description
+
 ### __[2.1.1](https://gitlab.com/flwgns-docker/seafile-client/-/tags/2.1.1)__ | _2020/03/10_
-- Ongoing #14: Prevent re-initialization and re-synchronization of the container if it's life cycle change but is not deleted
+- Ongoing #14: prevent re-initialization and re-synchronization of the container if it's life cycle change but is not deleted
 ## __[2.1.0](https://gitlab.com/flwgns-docker/seafile-client/-/tags/2.1.0)__ | _2020/01/30_
 - Close #13: replace previous Bash script that parse `seaf-cli status` with a Python script that use __pysearpc__ to run checks
 - Ongoing #14: implement a workaround to probable issue, waiting for the issue to appear
