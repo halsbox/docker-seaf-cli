@@ -51,7 +51,7 @@ description_templater:
   stage: build
   script: sh -e .utilities/templates/templater.sh
   only:
-    - tags
+    - enhance--documentations-templates
   artifacts:
     paths:
       - "*.description"
