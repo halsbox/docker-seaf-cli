@@ -17,7 +17,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 failures=()
-binaries=(seaf-cli oathtool)
+binaries=(seaf-cli oathtool grep)
 
 for binary in "${binaries[@]}"; do
     if ! [ -x "$(command -v $binary)" ]; then
