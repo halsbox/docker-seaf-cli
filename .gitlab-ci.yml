@@ -47,7 +47,7 @@ publish:
 #    - master
 
 description_templater:
-  image: python/3.8-alpine
+  image: python:3.8-alpine
   stage: build
   script: sh -e .utilities/templates/templater.sh
   only:
