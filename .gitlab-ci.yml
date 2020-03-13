@@ -10,11 +10,12 @@ stages:
 
 before_script:
   - apk add bash git
-  - /bin/bash .utilities/check.sh
 
 build:
   stage: build
-  script: /bin/bash -e .utilities/build.sh
+  script:
+    - /bin/bash .utilities/check.sh
+    - /bin/bash -e .utilities/build.sh
   only:
     - tags
   artifacts:
