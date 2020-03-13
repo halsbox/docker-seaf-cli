@@ -54,7 +54,7 @@ installed_version=$(docker run --rm --entrypoint="" $CI_REGISTRY_IMAGE:latest \
         apt-cache policy seafile-cli | grep 'Installed:' | awk '{print \$2}'")
 
 # Create an issue if a new version was released.
-if [[ "$installed_version" == "$candidate_version"]; then
+if [[ "$installed_version" == "$candidate_version" ]]; then
     exit_with_message_and_code "No new version of the seafile-cli package have been released." 0
 else
     echo "A new version of the seafile-cli package have been released. Creating a new issue..."
