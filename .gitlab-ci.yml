@@ -4,6 +4,7 @@ services:
   - docker:dind
 
 stages:
+  - report
   - build
   - test
   - publish
@@ -27,7 +28,6 @@ test:
   script: /bin/bash -e .utilities/test.sh
   only:
     - tags
-    - schedules
   artifacts:
     paths:
       - "$CI_PROJECT_NAME.tar"
@@ -58,7 +58,7 @@ description_templater:
       - "*.description"
 
 bot:package_update_notification:
-  image: alpine:latest
+  stage: report
   script: bash -e .utilities/package_update_notifier.sh
   only:
     - schedules
