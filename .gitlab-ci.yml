@@ -55,3 +55,14 @@ description_templater:
   artifacts:
     paths:
       - "*.description"
+
+bot:package_update_notification:
+  image: alpine:latest
+  script: bash -e .utilities/package_update_notifier.sh
+  only:
+    - schedules
+    # see https://docs.gitlab.com/ce/ci/yaml/README.html#onlyexcept-advanced for feature updates
+    # refs:
+    #   - schedules
+    # variables:
+    #   - $SCHEDULE_ID == $PACKAGE_UPDATE_NOTIFICATION_SCHEDULE_ID
