@@ -23,6 +23,16 @@ build:
     paths:
       - "$CI_PROJECT_NAME.tar"
 
+build:description_template:
+  image: python:3.8-alpine
+  stage: build
+  script: sh -e .utilities/templates/templater.sh
+  only:
+    - tags
+  artifacts:
+    paths:
+      - "*.description"
+
 test:
   stage: test
   script: /bin/bash -e .utilities/test.sh
@@ -46,16 +56,6 @@ publish:
 #  script: /bin/bash -e .utilities/update-docker-hub-full-description.sh
 #  only:
 #    - master
-
-description_templater:
-  image: python:3.8-alpine
-  stage: build
-  script: sh -e .utilities/templates/templater.sh
-  only:
-    - tags
-  artifacts:
-    paths:
-      - "*.description"
 
 bot:package_update_notification:
   stage: report
