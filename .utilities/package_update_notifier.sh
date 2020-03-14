@@ -39,7 +39,7 @@ if [[ -n "$ISSUE_ID" ]]; then
             https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/pipeline_schedules/$SCHEDULE_ID/variables/ISSUES_ID'
 #    else
 #        exit_with_message_and_code "An issue already exists, it is not closed yet." 0
-    fi
+#    fi
 fi
 
 # Get the installed and candidate versions of the seafile-cli package from the latest Docker image.
