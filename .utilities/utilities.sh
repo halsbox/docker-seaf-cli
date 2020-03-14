@@ -19,3 +19,8 @@
 load_images_artifacts() {
     docker load --input $CI_PROJECT_NAME.tar
 }
+
+exit_with_message_and_code() {
+    echo $1
+    exit $2
+}
