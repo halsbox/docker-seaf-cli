@@ -32,14 +32,14 @@ fi
 if [[ -n "$ISSUE_ID" ]]; then
     issue_state="$(curl -H \"PRIVATE-TOKEN: $REPORTER_BOT_ACCESS_TOKEN\" \
         https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/issue/$ISSUE_ID | jq .state)"
-#    if [[ "$issue_state" == "closed" ]]; then
+    if [[ "$issue_state" == "closed" ]]; then
         echo "An issue exist, but is closed. Removing ISSUE_ID schedule variable..."
-        echo 'curl -X DELETE \
+        curl -X DELETE \
             -H "PRIVATE-TOKEN: $REPORTER_BOT_ACCESS_TOKEN" \
-            https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/pipeline_schedules/$SCHEDULE_ID/variables/ISSUES_ID'
-#    else
-#        exit_with_message_and_code "An issue already exists, it is not closed yet." 0
-#    fi
+            https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/pipeline_schedules/$SCHEDULE_ID/variables/ISSUES_ID
+    else
+        exit_with_message_and_code "An issue already exists, it is not closed yet." 0
+    fi
 fi
 
 # Get the installed and candidate versions of the seafile-cli package from the latest Docker image.
@@ -55,17 +55,17 @@ installed_version=$(docker run --rm --entrypoint="" $CI_REGISTRY_IMAGE:latest \
 
 # Create an issue if a new version was released.
 if [[ "$installed_version" == "$candidate_version" ]]; then
-#    exit_with_message_and_code "No new version of the seafile-cli package have been released." 0
-#else
+    exit_with_message_and_code "No new version of the seafile-cli package have been released." 0
+else
     echo "A new version of the seafile-cli package have been released. Creating a new issue..."
     data=$(jq -n \
         --arg title "seafile-cli v${candidate_version} was released" \
         --arg description "Check for new feature, breaking changes or anything worth updating to update the Docker image." \
         --arg labels "enhancement" \
         '{title: $title, description: $description, labels: [$labels]}')
-    echo 'curl -X POST \
+    curl -X POST \
         -H "PRIVATE-TOKEN: $REPORTER_BOT_ACCESS_TOKEN" \
         -H "Content-Type: application/json" \
         -d "$data"
-        https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/issues'
+        https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/issues
 fi
