@@ -38,7 +38,7 @@ if __name__ == "__main__":
     seafile_socket = os.path.join(args.confdir, "seafile.sock")
     if not os.path.exists(seafile_socket):
         raise Exception("Could not find a Seafile socket at {}".format(args.confdir))
-    seafile_rpc = seafile.RpcClient(os.path.join(args.confdir, "seafile.sock"))
+    seafile_rpc = seafile.RpcClient(seafile_socket)
 
     # Fetch the sync task of the repository.
     repository_sync_task = seafile_rpc.get_repo_sync_task(args.repository_id)
