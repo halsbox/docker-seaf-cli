@@ -36,7 +36,7 @@ if [[ -n "$ISSUE_ID" ]]; then
         echo "An issue exist, but is closed. Removing ISSUE_ID schedule variable..."
         curl -X DELETE \
             -H "PRIVATE-TOKEN: $REPORTER_BOT_ACCESS_TOKEN" \
-            https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/pipeline_schedules/$SCHEDULE_ID/variables/ISSUES_ID
+            https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/pipeline_schedules/$SCHEDULE_ID/variables/$ISSUE_ID
     else
         exit_with_message_and_code "An issue already exists, it is not closed yet." 0
     fi
