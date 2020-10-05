@@ -1,0 +1,11 @@
+# Authors
+
+The list of people that contributed to this repository:
+
+{% for contributor in contributors -%}
+{%- if contributor.details -%}
+{{ contributor.name }}, {{ contributor.details }}.
+{% else -%}
+{{ contributor.name }}.
+{% endif -%}
+{%- endfor -%}

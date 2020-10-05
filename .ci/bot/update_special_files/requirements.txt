@@ -1,0 +1,5 @@
+python-gitlab
+BeautifulSoup4
+Jinja2
+click
+mistune

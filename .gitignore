@@ -3,3 +3,4 @@
 docker-compose.test.yml
 venv/
 *.description
+.env

@@ -1,7 +1,16 @@
-# Unreleased
-## Added
-- Add a templater for Docker Hub and Seafile's forum topic description, see #16
-
+{%- if target == "Unreleased" -%}
+# {{ target|title }}
+{%- else -%}
+# __{{ target }}__ | {{ date.strftime("%Y/%m/%d")}}
+{%- endif -%}
+{%- for type_of_change in ["Added", "Changed", "Deprecated", "Removed", "Fixed", "Security"] -%}
+{%- if type_of_change in changes %}
+## {{ type_of_change|title }}
+{% for change in changes[type_of_change] -%}
+- {{ change }}
+{%- endfor -%}
+{%- endif %}
+{%- endfor %}
 # __2.1.1__ | 2020/03/10
 ## Fixed
 - Prevent re-initialization and re-synchronization of the container if it's life cycle change but is not deleted, see #14
